@@ -12,19 +12,19 @@ const news = [
   {
     title: 'HHAI Receives $2.5M USAID Grant for Emergency Nutrition Response in Borno State',
     date: 'May 15, 2024', category: 'Funding', categoryColor: 'bg-green-100 text-green-700',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=375&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=600&h=375&auto=format&fit=crop&q=85',
     excerpt: 'The 12-month USAID/BHA-funded grant will enable HHAI to treat 15,000 children with SAM and MAM across 8 LGAs in Borno State.',
   },
   {
     title: 'WASH Project Delivers Clean Water to 50,000 People in Maiduguri IDP Camps',
     date: 'April 28, 2024', category: 'WASH', categoryColor: 'bg-blue-100 text-blue-700',
-    image: 'https://images.unsplash.com/photo-1534294668821-28a3054f4256?w=600&h=375&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=600&h=375&auto=format&fit=crop&q=85',
     excerpt: 'After 18 months of intensive WASH programming, HHAI has rehabilitated 28 boreholes serving over 50,000 IDP and host community residents.',
   },
   {
     title: "8,500 Girls Back in School Through HHAI's Girls Education Initiative in Adamawa",
     date: 'March 10, 2024', category: 'Education', categoryColor: 'bg-yellow-100 text-yellow-700',
-    image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&h=375&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&h=375&auto=format&fit=crop&q=85',
     excerpt: 'Conditional scholarships, community mobilization, and TLS construction have reversed years of girls\' dropout rates in Adamawa State.',
   },
   {
@@ -48,14 +48,14 @@ const news = [
 ];
 
 const photos = [
-  { src: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=400&h=300&auto=format&fit=crop', caption: 'Nutrition screening, Dikwa IDP Camp' },
-  { src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&auto=format&fit=crop', caption: 'Mobile clinic, Jere LGA, Borno' },
-  { src: 'https://images.unsplash.com/photo-1534294668821-28a3054f4256?w=400&h=300&auto=format&fit=crop', caption: 'Borehole rehabilitation, Adamawa' },
-  { src: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&h=300&auto=format&fit=crop', caption: 'Girls education, Yola, Adamawa State' },
-  { src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=300&auto=format&fit=crop', caption: 'Food distribution, Maiduguri' },
-  { src: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=300&auto=format&fit=crop', caption: 'Protection safe space, Borno State' },
-  { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&auto=format&fit=crop', caption: 'Community health worker training' },
-  { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&auto=format&fit=crop', caption: 'Partner coordination meeting, Maiduguri' },
+  { src: 'https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Community health visit, Adamawa State' },
+  { src: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Nutrition screening, Dikwa IDP Camp' },
+  { src: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Borehole rehabilitation, Adamawa' },
+  { src: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Girls education, Yola, Adamawa State' },
+  { src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Food distribution, Maiduguri' },
+  { src: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Mobile clinic, Jere LGA, Borno' },
+  { src: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Community health worker training' },
+  { src: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=300&auto=format&fit=crop&q=85', caption: 'Gender empowerment session, Bauchi State' },
 ];
 
 const pressReleases = [

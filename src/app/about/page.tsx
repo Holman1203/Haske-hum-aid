@@ -70,7 +70,7 @@ export default function AboutPage() {
       <section className="relative py-20 lg:py-28 bg-brand-blue overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=600&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=1920&h=600&auto=format&fit=crop&q=85"
             alt=""
             fill
             className="object-cover"
@@ -181,8 +181,8 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden h-80">
               <Image
-                src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&h=400&auto=format&fit=crop"
-                alt="HHAI community health program"
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&auto=format&fit=crop&q=85"
+                alt="HHAI community health program in rural Nigeria"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -26,7 +26,7 @@ const programs = [
   {
     title: 'Health',
     icon: Heart,
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '5,000+', statLabel: 'Mothers & Children',
     color: 'bg-red-50 text-red-600 border-red-100', accent: 'bg-red-600',
     href: '/programs/health',
@@ -36,7 +36,7 @@ const programs = [
   {
     title: 'Nutrition',
     icon: Leaf,
-    image: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '3,200+', statLabel: 'Children Treated',
     color: 'bg-green-50 text-green-600 border-green-100', accent: 'bg-green-600',
     href: '/programs/nutrition',
@@ -46,7 +46,7 @@ const programs = [
   {
     title: 'Gender & Economic Empowerment',
     icon: Users,
-    image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '1,800+', statLabel: 'Women Empowered',
     color: 'bg-purple-50 text-purple-600 border-purple-100', accent: 'bg-purple-600',
     href: '/programs/protection',
@@ -56,7 +56,7 @@ const programs = [
   {
     title: 'Protection',
     icon: Shield,
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '2,500+', statLabel: 'Cases Managed',
     color: 'bg-indigo-50 text-indigo-600 border-indigo-100', accent: 'bg-indigo-600',
     href: '/programs/protection',
@@ -66,7 +66,7 @@ const programs = [
   {
     title: 'WASH',
     icon: Droplets,
-    image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '8,000+', statLabel: 'WASH Beneficiaries',
     color: 'bg-blue-50 text-blue-600 border-blue-100', accent: 'bg-blue-600',
     href: '/programs/wash',
@@ -76,7 +76,7 @@ const programs = [
   {
     title: 'Food Security & Livelihoods',
     icon: Wheat,
-    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '2,000+', statLabel: 'Households Supported',
     color: 'bg-yellow-50 text-yellow-600 border-yellow-100', accent: 'bg-yellow-500',
     href: '/programs/food-security',
@@ -86,7 +86,7 @@ const programs = [
   {
     title: 'Education',
     icon: BookOpen,
-    image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=500&h=260&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=500&h=260&auto=format&fit=crop&q=85',
     stat: '1,500+', statLabel: 'Children Enrolled',
     color: 'bg-orange-50 text-orange-600 border-orange-100', accent: 'bg-orange-500',
     href: '/programs/education',
@@ -170,7 +170,7 @@ const news = [
     category: 'Field Report',
     categoryColor: 'bg-green-100 text-green-700',
     borderColor: 'border-t-green-500',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=280&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=280&auto=format&fit=crop&q=85',
     excerpt: 'The grant will enable HHAI to treat 15,000 children suffering from severe acute malnutrition across Borno and Yobe states.',
     href: '/media/news/usaid-nutrition-grant',
     readTime: '3 min read',
@@ -181,7 +181,7 @@ const news = [
     category: 'WASH',
     categoryColor: 'bg-blue-100 text-blue-700',
     borderColor: 'border-t-blue-500',
-    image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=500&h=280&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=500&h=280&auto=format&fit=crop&q=85',
     excerpt: 'The 18-month EU-funded project will construct 30 new boreholes and train 150 community water management committees.',
     href: '/media/news/adamawa-wash-project',
     readTime: '4 min read',
@@ -192,7 +192,7 @@ const news = [
     category: 'Food Security',
     categoryColor: 'bg-purple-100 text-purple-700',
     borderColor: 'border-t-purple-500',
-    image: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=500&h=280&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&h=280&auto=format&fit=crop&q=85',
     excerpt: 'Multi-purpose cash assistance will provide immediate relief and restore purchasing power for displacement-affected families in Borno State.',
     href: '/media/news/cash-transfer-launch',
     readTime: '3 min read',
@@ -303,8 +303,8 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&h=525&auto=format&fit=crop"
-                  alt="HHAI field workers in a community health clinic"
+                  src="https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=700&h=525&auto=format&fit=crop&q=85"
+                  alt="HHAI community health worker visiting a mother and child in rural Nigeria"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -515,21 +515,21 @@ export default function HomePage() {
                 title: 'Clean Water Restored to 50,000 Families in Borno',
                 sector: 'WASH', sectorColor: 'bg-blue-100 text-blue-700',
                 location: 'Maiduguri, Borno State', date: 'March 2024',
-                image: 'https://images.unsplash.com/photo-1534294668821-28a3054f4256?w=600&h=400&auto=format&fit=crop',
+                image: 'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=600&h=400&auto=format&fit=crop&q=85',
                 excerpt: 'HHAI rehabilitated 28 boreholes and installed 12 solar-powered water systems across Maiduguri IDP camps, ending years of waterborne disease outbreaks.',
               },
               {
                 title: '12,000 Children Recovered from Severe Malnutrition',
                 sector: 'Nutrition', sectorColor: 'bg-green-100 text-green-700',
                 location: 'Dikwa & Ngala, Borno State', date: 'January 2024',
-                image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&auto=format&fit=crop',
+                image: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=600&h=400&auto=format&fit=crop&q=85',
                 excerpt: 'Through integrated CMAM programming, HHAI treated 12,340 children under-5 for severe acute malnutrition with a recovery rate exceeding 96%.',
               },
               {
                 title: "Girls' Education Initiative Enrolls 8,500 Girls",
                 sector: 'Education', sectorColor: 'bg-yellow-100 text-yellow-700',
                 location: 'Yola, Adamawa State', date: 'December 2023',
-                image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&h=400&auto=format&fit=crop',
+                image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&h=400&auto=format&fit=crop&q=85',
                 excerpt: 'The Back-to-School campaign broke cultural barriers and re-enrolled over 8,500 out-of-school girls in Adamawa, providing scholarships and safe learning spaces.',
               },
             ].map((story) => (

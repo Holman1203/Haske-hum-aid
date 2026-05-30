@@ -18,67 +18,67 @@ const slides = [
   {
     id: 0,
     tag: 'Emergency Response',
-    headline: ['Delivering Hope to', 'Vulnerable Communities'],
+    headline: ['A Mother\'s Hope,', 'Our Mission'],
     description:
-      'Providing life-saving humanitarian assistance across Nigeria through integrated emergency response and sustainable development programs.',
+      'Every woman and child in Nigeria deserves dignity, health, and the chance to thrive. HHAI walks alongside the most vulnerable — delivering life-saving care where it matters most.',
     buttons: [
       { label: 'Donate Now',  href: '/get-involved#donate',    primary: true  },
       { label: 'Learn More',  href: '/about',                   primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=1080&auto=format&fit=crop&q=80',
-    imageAlt: 'Humanitarian workers supporting displaced families in Nigeria',
+    image:    'https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=1920&h=1080&auto=format&fit=crop&q=85&crop=center',
+    imageAlt: 'African mother holding her young child, representing the communities HHAI serves',
   },
   {
     id: 1,
     tag: 'Health Programs',
-    headline: ['Access to Quality', 'Healthcare for All'],
+    headline: ['Quality Healthcare', 'for Every Mother'],
     description:
-      'Improving healthcare access for women, children, and vulnerable populations in underserved communities through targeted RMNCHN interventions.',
+      'Community health workers and clinics bringing RMNCHN services — maternal care, child immunisation, and skilled birth attendance — to underserved women across Nigeria.',
     buttons: [
       { label: 'Explore Health Programs', href: '/programs/health', primary: true  },
       { label: 'Support Our Mission',     href: '/get-involved',    primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&h=1080&auto=format&fit=crop&q=80',
-    imageAlt: 'Healthcare workers attending to patients in rural communities',
+    image:    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&h=1080&auto=format&fit=crop&q=85',
+    imageAlt: 'Healthcare worker conducting maternal health check in a rural community',
   },
   {
     id: 2,
     tag: 'WASH',
-    headline: ['Clean Water', 'Changes Lives'],
+    headline: ['Clean Water', 'Changes Everything'],
     description:
-      'Expanding access to clean water, sanitation, and hygiene services in crisis-affected communities to prevent disease and restore dignity.',
+      'Safe water, sanitation, and hygiene are the foundation of community health. HHAI rehabilitates boreholes, builds latrines, and trains communities to protect every family.',
     buttons: [
       { label: 'View WASH Projects', href: '/programs/wash',          primary: true  },
       { label: 'Partner With Us',    href: '/get-involved#partners',  primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=1920&h=1080&auto=format&fit=crop&q=80',
-    imageAlt: 'Women and children accessing clean water in a rural community',
+    image:    'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=1920&h=1080&auto=format&fit=crop&q=85',
+    imageAlt: 'Children and women accessing clean water from a rehabilitated borehole',
   },
   {
     id: 3,
     tag: 'Nutrition',
-    headline: ['Fighting Child', 'Malnutrition'],
+    headline: ['No Child Should', 'Go to Bed Hungry'],
     description:
-      'Delivering preventive and curative nutrition services for vulnerable children and mothers through community-based management programs.',
+      'Through community-based nutrition programs, HHAI screens, treats, and prevents acute malnutrition in children under five and pregnant and lactating mothers.',
     buttons: [
       { label: 'Nutrition Programs', href: '/programs/nutrition',     primary: true  },
       { label: 'Donate Today',       href: '/get-involved#donate',    primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1920&h=1080&auto=format&fit=crop&q=80',
-    imageAlt: 'Nutrition screening and child feeding activities in a community',
+    image:    'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=1920&h=1080&auto=format&fit=crop&q=85',
+    imageAlt: 'Community nutrition screening and therapeutic feeding for children under five',
   },
   {
     id: 4,
-    tag: 'Livelihoods',
-    headline: ['Building Sustainable', 'Livelihoods'],
+    tag: 'Education & Livelihoods',
+    headline: ['Empowering Women,', 'Transforming Communities'],
     description:
-      'Empowering families through food security and livelihood support programs that strengthen resilience and enable long-term recovery.',
+      'From girls back in school to women building income and self-reliance — HHAI invests in the long-term resilience of families and communities across Nigeria.',
     buttons: [
       { label: 'View Projects',  href: '/projects',       primary: true  },
       { label: 'Get Involved',   href: '/get-involved',   primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&h=1080&auto=format&fit=crop&q=80',
-    imageAlt: 'Farmers and beneficiaries participating in livelihood activities',
+    image:    'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1920&h=1080&auto=format&fit=crop&q=85',
+    imageAlt: 'Young African girls in school, beneficiaries of HHAI education programs',
   },
 ];
 
