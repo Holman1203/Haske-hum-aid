@@ -64,15 +64,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center mb-5">
-              <div className="w-24 h-24 relative flex-shrink-0">
+            <div className="flex items-center gap-4 mb-6">
+              {/* White circular background so the logo pops on dark footer */}
+              <div className="w-28 h-28 relative flex-shrink-0 rounded-full bg-white p-1.5 shadow-xl ring-2 ring-white/20">
                 <Image
                   src="/images/hhai-logo.png"
                   alt="HHAI Logo"
                   fill
-                  className="object-contain drop-shadow-md"
-                  sizes="96px"
+                  className="object-contain rounded-full"
+                  sizes="112px"
                 />
+              </div>
+              <div>
+                <p className="text-white font-bold text-base leading-tight font-serif">Haske Humanitarian</p>
+                <p className="text-white font-bold text-base leading-tight font-serif">Aid Initiative</p>
+                <p className="text-brand-orange text-[11px] font-semibold mt-1 uppercase tracking-widest">HHAI</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
@@ -197,13 +203,13 @@ export default function Footer() {
         <div className="container-site py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 relative flex-shrink-0">
+              <div className="w-9 h-9 relative flex-shrink-0 rounded-full bg-white p-0.5 ring-1 ring-white/20">
                 <Image
                   src="/images/hhai-logo.png"
                   alt="HHAI"
                   fill
-                  className="object-contain"
-                  sizes="40px"
+                  className="object-contain rounded-full"
+                  sizes="36px"
                 />
               </div>
               <p>© {new Date().getFullYear()} Haske Humanitarian Aid Initiative (HHAI). All rights reserved.</p>
