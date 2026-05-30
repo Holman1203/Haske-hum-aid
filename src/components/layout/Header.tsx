@@ -34,6 +34,20 @@ export default function Header() {
   const isHomePage = pathname === '/';
   const isTransparent = isHomePage && !isScrolled;
 
+  /** Returns className string for a desktop nav link with active indicator */
+  const navCls = (href: string, exact = false) => {
+    const active = exact ? pathname === href : pathname.startsWith(href);
+    const base = 'px-3 py-2 text-sm font-medium transition-colors rounded-md';
+    if (isTransparent) {
+      return `${base} ${active ? 'bg-white/25 text-white font-semibold' : 'text-white hover:bg-white/15'}`;
+    }
+    return `${base} ${
+      active
+        ? 'text-brand-blue bg-brand-blue-light font-bold'
+        : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'
+    }`;
+  };
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
     // check immediately on mount (handles back-nav with restored scroll)
@@ -110,19 +124,15 @@ export default function Header() {
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              <Link href="/" className={`nav-link px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}>
-                Home
-              </Link>
-              <Link href="/about" className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}>
-                About Us
-              </Link>
+              <Link href="/" className={navCls('/', true)}>Home</Link>
+              <Link href="/about" className={navCls('/about')}>About Us</Link>
 
               {/* Programs dropdown */}
               <div className="relative" onMouseLeave={() => setIsProgramsOpen(false)}>
                 <button
                   onMouseEnter={() => setIsProgramsOpen(true)}
                   onClick={() => setIsProgramsOpen(!isProgramsOpen)}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}
+                  className={`flex items-center gap-1 ${navCls('/programs')}`}
                   aria-expanded={isProgramsOpen}
                 >
                   Programs <ChevronDown size={14} className={`transition-transform ${isProgramsOpen ? 'rotate-180' : ''}`} />
@@ -153,19 +163,15 @@ export default function Header() {
                 )}
               </div>
 
-              <Link href="/projects" className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}>
-                Projects
-              </Link>
-              <Link href="/media" className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}>
-                Media
-              </Link>
+              <Link href="/projects" className={navCls('/projects')}>Projects</Link>
+              <Link href="/media" className={navCls('/media')}>Media</Link>
 
               {/* Get Involved dropdown */}
               <div className="relative" onMouseLeave={() => setIsGetInvolvedOpen(false)}>
                 <button
                   onMouseEnter={() => setIsGetInvolvedOpen(true)}
                   onClick={() => setIsGetInvolvedOpen(!isGetInvolvedOpen)}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}
+                  className={`flex items-center gap-1 ${navCls('/get-involved')}`}
                   aria-expanded={isGetInvolvedOpen}
                 >
                   Get Involved <ChevronDown size={14} className={`transition-transform ${isGetInvolvedOpen ? 'rotate-180' : ''}`} />
@@ -186,9 +192,7 @@ export default function Header() {
                 )}
               </div>
 
-              <Link href="/contact" className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${isTransparent ? 'text-white hover:text-white hover:bg-white/15' : 'text-brand-dark hover:text-brand-blue hover:bg-brand-blue-light'}`}>
-                Contact
-              </Link>
+              <Link href="/contact" className={navCls('/contact')}>Contact</Link>
             </nav>
 
             {/* Right actions */}

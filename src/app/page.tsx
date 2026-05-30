@@ -8,6 +8,9 @@ import {
   AlertTriangle, Globe, Users, Building, TrendingUp, MapPin, CheckCircle
 } from 'lucide-react';
 import HeroSlider from '@/components/home/HeroSlider';
+import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
+import AnimatedCounter from '@/components/ui/AnimatedCounter';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 /* ─── Data ────────────────────────────────────────────────────── */
 
@@ -234,18 +237,18 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 text-center hover:bg-white/20 transition-all duration-300 group"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-orange/60 transition-colors">
-                  <stat.icon size={20} className="text-white" />
+              <RevealOnScroll key={stat.label} delay={i * 0.08} direction="up">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 text-center hover:bg-white/20 transition-all duration-300 group h-full">
+                  <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-orange/60 transition-colors">
+                    <stat.icon size={20} className="text-white" />
+                  </div>
+                  <div className="text-2xl lg:text-3xl font-black text-white font-serif mb-0.5">
+                    <AnimatedCounter value={stat.value} duration={1600} />
+                  </div>
+                  <div className="text-white text-xs font-semibold leading-tight mb-1">{stat.label}</div>
+                  <div className="text-green-300 text-[10px] leading-tight">{stat.sub}</div>
                 </div>
-                <div className="text-2xl lg:text-3xl font-black text-white font-serif mb-0.5">{stat.value}</div>
-                <div className="text-white text-xs font-semibold leading-tight mb-1">{stat.label}</div>
-                <div className="text-green-300 text-[10px] leading-tight">{stat.sub}</div>
-              </div>
+              </RevealOnScroll>
             ))}
           </div>
         </div>
@@ -254,6 +257,7 @@ export default function HomePage() {
       {/* ── WHO WE ARE ── */}
       <section className="py-20 bg-white">
         <div className="container-site">
+          <RevealOnScroll>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <p className="section-subheading">Who We Are</p>
@@ -318,6 +322,7 @@ export default function HomePage() {
               <div className="absolute -top-8 -left-8 w-40 h-40 bg-brand-green-light rounded-full -z-10" />
             </div>
           </div>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -385,6 +390,7 @@ export default function HomePage() {
       {/* ── PROGRAMS / THEMATIC SECTORS ── */}
       <section className="py-20 bg-white">
         <div className="container-site">
+          <RevealOnScroll>
           <div className="text-center max-w-2xl mx-auto mb-12">
             <p className="section-subheading">What We Do</p>
             <h2 className="section-heading mb-4">Our Thematic Areas of Intervention</h2>
@@ -392,6 +398,7 @@ export default function HomePage() {
               Seven integrated sectors working together to deliver comprehensive humanitarian response and build community resilience across Nigeria.
             </p>
           </div>
+          </RevealOnScroll>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {programs.map((program) => (
@@ -569,42 +576,7 @@ export default function HomePage() {
             <p className="text-green-200 text-sm mt-3 max-w-md mx-auto">Real voices from the communities we serve — stories of resilience, recovery, and renewed hope.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 flex flex-col">
-                {/* Program tag */}
-                <span className={`self-start tag-pill ${t.programColor} font-semibold mb-4 text-[10px]`}>{t.program}</span>
-
-                <Quote size={28} className="text-brand-orange mb-3 opacity-80" />
-                <p className="text-white leading-relaxed mb-6 italic text-sm flex-1">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-
-                {/* Person */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-brand-orange/50">
-                    <Image
-                      src={t.image}
-                      alt={t.name}
-                      fill
-                      className="object-cover"
-                      sizes="48px"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-white font-bold text-sm">
-                      {t.name}{t.age ? `, ${t.age}` : ''}
-                    </div>
-                    <div className="text-green-300 text-xs">{t.role}</div>
-                    <div className="text-white/60 text-[10px] mt-0.5 flex items-center gap-1">
-                      <MapPin size={9} />
-                      {t.location}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialsCarousel items={testimonials} />
         </div>
       </section>
 
@@ -635,6 +607,7 @@ export default function HomePage() {
       {/* ── LATEST NEWS ── */}
       <section className="py-20 bg-gray-50">
         <div className="container-site">
+          <RevealOnScroll>
           <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
             <div>
               <p className="section-subheading">Latest Updates</p>
@@ -644,6 +617,7 @@ export default function HomePage() {
               All News & Reports <ArrowRight size={14} />
             </Link>
           </div>
+          </RevealOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {news.map((article) => (
