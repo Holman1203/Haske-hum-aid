@@ -1,9 +1,25 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, Merriweather } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
 import MainWrapper from '@/components/layout/MainWrapper';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+});
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  variable: '--font-merriweather',
+  display: 'swap',
+  weight: ['300', '400', '700', '900'],
+  style: ['normal', 'italic'],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -62,17 +78,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap"
-          rel="stylesheet"
-        />
-        {/* Google Analytics placeholder */}
-        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> */}
-      </head>
+    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
       <body>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-brand-blue text-white px-4 py-2 rounded z-50">
           Skip to main content

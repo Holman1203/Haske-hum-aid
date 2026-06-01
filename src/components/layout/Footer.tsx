@@ -64,25 +64,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-4 mb-6">
-              {/* White circular background so the logo pops on dark footer */}
-              <div className="w-28 h-28 relative flex-shrink-0 rounded-full bg-white p-1.5 shadow-xl ring-2 ring-white/20">
+            <div className="flex items-center mb-5">
+              <div className="w-40 h-40 relative flex-shrink-0">
                 <Image
                   src="/images/hhai-logo.png"
                   alt="HHAI Logo"
                   fill
-                  className="object-contain rounded-full"
-                  sizes="112px"
+                  className="object-contain drop-shadow-lg"
+                  sizes="160px"
                 />
-              </div>
-              <div>
-                <p className="text-white font-bold text-base leading-tight font-serif">Haske Humanitarian</p>
-                <p className="text-white font-bold text-base leading-tight font-serif">Aid Initiative</p>
-                <p className="text-brand-orange text-[11px] font-semibold mt-1 uppercase tracking-widest">HHAI</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Building an enabling environment where women and children's health needs are prioritised, through community engagement and sustainable rural development across Nigeria since 2022.
+              Building an enabling environment where women and children&apos;s health needs are prioritised, through community engagement and sustainable rural development across Nigeria since 2022.
             </p>
             <div className="space-y-2.5 text-sm text-gray-400">
               <div className="flex items-start gap-2.5">
