@@ -109,16 +109,27 @@ export default function Header() {
         <div className="container-site">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" onClick={closeAll} className="flex items-center group">
-              <div className={`w-12 h-12 lg:w-16 lg:h-16 relative flex-shrink-0 transition-all duration-300 ${isTransparent ? 'drop-shadow-xl' : ''}`}>
+            <Link href="/" onClick={closeAll} className="flex items-center gap-3 group">
+              <div className={`w-14 h-14 lg:w-20 lg:h-20 relative flex-shrink-0 transition-all duration-300 ${isTransparent ? 'drop-shadow-xl' : ''}`}>
                 <Image
                   src="/images/hhai-logo.png"
                   alt="HHAI Logo"
                   fill
-                  className="object-contain drop-shadow-sm"
-                  sizes="64px"
+                  className="object-contain"
+                  sizes="80px"
                   priority
                 />
+              </div>
+              <div className="hidden sm:block leading-tight">
+                <div className={`font-bold text-sm lg:text-base font-serif transition-colors ${isTransparent ? 'text-white' : 'text-brand-blue'}`}>
+                  Haske Humanitarian
+                </div>
+                <div className={`font-bold text-sm lg:text-base font-serif transition-colors ${isTransparent ? 'text-white' : 'text-brand-blue'}`}>
+                  Aid Initiative
+                </div>
+                <div className={`text-[9px] lg:text-[10px] font-semibold uppercase tracking-wider transition-colors ${isTransparent ? 'text-white/70' : 'text-brand-orange'}`}>
+                  Pursuing Holistic Care for Humanity
+                </div>
               </div>
             </Link>
 

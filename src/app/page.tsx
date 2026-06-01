@@ -303,8 +303,8 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=700&h=525&auto=format&fit=crop&q=85"
-                  alt="HHAI community health worker visiting a mother and child in rural Nigeria"
+                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&h=525&auto=format&fit=crop&q=85"
+                  alt="HHAI field health workers at a community clinic in rural Nigeria"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"

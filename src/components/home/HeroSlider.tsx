@@ -25,7 +25,7 @@ const slides = [
       { label: 'Donate Now',  href: '/get-involved#donate',    primary: true  },
       { label: 'Learn More',  href: '/about',                   primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1509099382481-f5a8e80bed7d?w=1920&h=1080&auto=format&fit=crop&q=85&crop=center',
+    image:    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=1920&h=1080&auto=format&fit=crop&q=85',
     imageAlt: 'African mother holding her young child, representing the communities HHAI serves',
   },
   {
