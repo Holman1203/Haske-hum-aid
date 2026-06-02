@@ -17,42 +17,42 @@ import 'swiper/css/effect-fade';
 const slides = [
   {
     id: 0,
-    tag: 'Emergency Response',
-    headline: ['A Mother\'s Hope,', 'Our Mission'],
+    tag: 'Field Operations',
+    headline: ['Dedicated Workers,', 'Stronger Communities'],
     description:
-      'Every woman and child in Nigeria deserves dignity, health, and the chance to thrive. HHAI walks alongside the most vulnerable — delivering life-saving care where it matters most.',
+      'Our field teams go door-to-door, village-to-village — documenting needs, building trust, and delivering life-saving services to women and children across Nigeria.',
     buttons: [
-      { label: 'Donate Now',  href: '/get-involved#donate',    primary: true  },
-      { label: 'Learn More',  href: '/about',                   primary: false },
+      { label: 'Our Programs',  href: '/programs',               primary: true  },
+      { label: 'Learn More',    href: '/about',                   primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=1920&h=1080&auto=format&fit=crop&q=85',
-    imageAlt: 'African mother holding her young child, representing the communities HHAI serves',
+    image:    '/images/hero-field-1.jpg',
+    imageAlt: 'HHAI field worker in purple vest documenting community health data on the ground',
   },
   {
     id: 1,
-    tag: 'Health Programs',
-    headline: ['Quality Healthcare', 'for Every Mother'],
+    tag: 'Health & Nutrition',
+    headline: ['Reaching Mothers', 'and Children First'],
     description:
-      'Community health workers and clinics bringing RMNCHN services — maternal care, child immunisation, and skilled birth attendance — to underserved women across Nigeria.',
+      'HHAI workers distribute essential health supplies, nutrition packs, and maternal kits directly to families — ensuring no woman or child is left behind.',
     buttons: [
-      { label: 'Explore Health Programs', href: '/programs/health', primary: true  },
-      { label: 'Support Our Mission',     href: '/get-involved',    primary: false },
+      { label: 'Health Programs',   href: '/programs/health',      primary: true  },
+      { label: 'Donate Now',        href: '/get-involved#donate',  primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&h=1080&auto=format&fit=crop&q=85',
-    imageAlt: 'Healthcare worker conducting maternal health check in a rural community',
+    image:    '/images/hero-field-2.jpg',
+    imageAlt: 'HHAI team distributing health and nutrition supplies to mothers and children in a community',
   },
   {
     id: 2,
-    tag: 'WASH',
-    headline: ['Clean Water', 'Changes Everything'],
+    tag: 'Community Outreach',
+    headline: ['Building Trust Through', 'Direct Community Action'],
     description:
-      'Safe water, sanitation, and hygiene are the foundation of community health. HHAI rehabilitates boreholes, builds latrines, and trains communities to protect every family.',
+      'From community dialogues to awareness campaigns — HHAI field teams engage stakeholders at every level to create lasting, community-owned change across Nigeria.',
     buttons: [
-      { label: 'View WASH Projects', href: '/programs/wash',          primary: true  },
-      { label: 'Partner With Us',    href: '/get-involved#partners',  primary: false },
+      { label: 'View Projects',     href: '/projects',             primary: true  },
+      { label: 'Partner With Us',   href: '/get-involved#partners',primary: false },
     ],
-    image:    'https://images.unsplash.com/photo-1534293230397-c067fc201ab8?w=1920&h=1080&auto=format&fit=crop&q=85',
-    imageAlt: 'Children and women accessing clean water from a rehabilitated borehole',
+    image:    '/images/hero-field-3.jpg',
+    imageAlt: 'HHAI community outreach team engaging with local community members and children',
   },
   {
     id: 3,
@@ -61,8 +61,8 @@ const slides = [
     description:
       'Through community-based nutrition programs, HHAI screens, treats, and prevents acute malnutrition in children under five and pregnant and lactating mothers.',
     buttons: [
-      { label: 'Nutrition Programs', href: '/programs/nutrition',     primary: true  },
-      { label: 'Donate Today',       href: '/get-involved#donate',    primary: false },
+      { label: 'Nutrition Programs', href: '/programs/nutrition',   primary: true  },
+      { label: 'Donate Today',       href: '/get-involved#donate',  primary: false },
     ],
     image:    'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=1920&h=1080&auto=format&fit=crop&q=85',
     imageAlt: 'Community nutrition screening and therapeutic feeding for children under five',
