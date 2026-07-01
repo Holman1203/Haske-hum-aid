@@ -1,38 +1,21 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Merriweather } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import WhatsAppButton from '@/components/layout/WhatsAppButton';
-import MainWrapper from '@/components/layout/MainWrapper';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-});
-
-const merriweather = Merriweather({
-  subsets: ['latin'],
-  variable: '--font-merriweather',
-  display: 'swap',
-  weight: ['300', '400', '700', '900'],
-  style: ['normal', 'italic'],
-});
+import QuickExitProvider from '@/components/layout/QuickExit';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://haskeinitiative.org'),
   title: {
-    default: 'Haske Humanitarian Aid Initiative (HHAI) | Northeast Nigeria',
-    template: '%s | HHAI',
+    default: 'Haske Humanitarian Aid Initiative (HHAI) | Carrying light to where it’s needed most',
+    template: '%s | Haske Humanitarian Aid Initiative',
   },
   description:
-    'Haske Humanitarian Aid Initiative (HHAI) builds an enabling environment for women and children\'s health through community engagement, nutrition programs, and gender empowerment across Nigeria. CAC Registered No. 182258.',
+    'Haske Humanitarian Aid Initiative (HHAI) is a woman-led, youth-driven national NGO protecting dignity and saving lives across North-East & North-West Nigeria — ending gender-based violence, delivering clean water, and standing with displaced families.',
   keywords: [
-    'HHAI', 'Haske Humanitarian Aid Initiative', 'Nigeria NGO', 'Adamawa State',
-    'humanitarian aid', 'maternal health', 'child health', 'RMNCHN',
-    'nutrition', 'health', 'gender empowerment', 'rural development',
-    'community health', 'Jimeta Yola', 'Bauchi', 'women empowerment',
+    'HHAI', 'Haske Humanitarian Aid Initiative', 'Nigeria NGO', 'GBV', 'gender-based violence',
+    'WASH', 'clean water', 'humanitarian relief', 'displaced families', 'Borno', 'Adamawa', 'Yobe',
+    'North-East Nigeria', 'North-West Nigeria', 'women empowerment', 'youth empowerment',
   ],
   authors: [{ name: 'Haske Humanitarian Aid Initiative' }],
   creator: 'HHAI',
@@ -41,52 +24,48 @@ export const metadata: Metadata = {
     locale: 'en_NG',
     url: 'https://haskeinitiative.org',
     siteName: 'Haske Humanitarian Aid Initiative',
-    title: 'Haske Humanitarian Aid Initiative | Transforming Lives in Northeast Nigeria',
+    title: 'Haske Humanitarian Aid Initiative | Carrying light to where it’s needed most',
     description:
-      'Building an enabling environment where women and children\'s health needs are prioritised through community engagement and rural development across Nigeria since 2022.',
-    images: [
-      {
-        url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&h=630&auto=format&fit=crop',
-        width: 1200,
-        height: 630,
-        alt: 'HHAI Community Impact',
-      },
-    ],
+      'A woman-led, youth-driven national NGO ending gender-based violence, delivering clean water and standing with displaced families across North-East & North-West Nigeria.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Haske Humanitarian Aid Initiative',
-    description: 'Transforming Lives Through Humanitarian Action in Northeast Nigeria',
-    creator: '@HaskeInitiative',
-  },
-  icons: {
-    icon: '/images/hhai-logo.png',
-    apple: '/images/hhai-logo.png',
+    description: 'Carrying light to where it’s needed most across North-East & North-West Nigeria.',
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
+  icons: {
+    icon: '/images/hhai-badge.png',
+    apple: '/images/hhai-badge.png',
+  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0D4F2A',
+  themeColor: '#9966CC',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
-      <body>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-brand-blue text-white px-4 py-2 rounded z-50">
+    <html lang="en" suppressHydrationWarning>
+      <body style={{ overflowX: 'hidden' }} suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only"
+          style={{ position: 'absolute', left: -9999, top: 0 }}
+        >
           Skip to main content
         </a>
-        <Header />
-        <MainWrapper>{children}</MainWrapper>
-        <Footer />
-        <WhatsAppButton />
+        <QuickExitProvider>
+          <Header />
+          {children}
+          <Footer />
+        </QuickExitProvider>
       </body>
     </html>
   );

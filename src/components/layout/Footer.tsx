@@ -1,219 +1,222 @@
+'use client';
+
+import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube, ArrowRight } from 'lucide-react';
+import Logo from '@/components/ui/Logo';
 
-const programs = [
-  { name: 'Health', href: '/programs/health' },
-  { name: 'Protection', href: '/programs/protection' },
-  { name: 'WASH', href: '/programs/wash' },
-  { name: 'Nutrition', href: '/programs/nutrition' },
-  { name: 'Education', href: '/programs/education' },
-  { name: 'Food Security & Livelihoods', href: '/programs/food-security' },
+const EXPLORE = [
+  { href: '/about', label: 'About us' },
+  { href: '/what-we-do', label: 'What we do' },
+  { href: '/about', label: 'Our impact' },
+  { href: '/get-involved', label: 'Get involved' },
+  { href: '/contact', label: 'Contact' },
 ];
 
-const quickLinks = [
-  { name: 'About HHAI', href: '/about' },
-  { name: 'Our Projects', href: '/projects' },
-  { name: 'Media Center', href: '/media' },
-  { name: 'Get Involved', href: '/get-involved' },
-  { name: 'Careers', href: '/get-involved#careers' },
-  { name: 'Contact Us', href: '/contact' },
+const PROGRAMS = [
+  'GBV prevention & response',
+  'Water, sanitation & hygiene',
+  'Education in emergencies',
+  'Health & psychosocial support',
+  'Livelihoods & resilience',
 ];
 
-const social = [
-  { name: 'Facebook', href: 'https://facebook.com/haskeinitiative', icon: Facebook },
-  { name: 'Twitter/X', href: 'https://twitter.com/HaskeInitiative', icon: Twitter },
-  { name: 'LinkedIn', href: 'https://linkedin.com/company/haske-humanitarian-aid-initiative', icon: Linkedin },
-  { name: 'Instagram', href: 'https://instagram.com/haskeinitiative', icon: Instagram },
-  { name: 'YouTube', href: 'https://youtube.com/@haskeinitiative', icon: Youtube },
+const SOCIALS = [
+  {
+    label: 'X (Twitter)',
+    path: 'M18.244 2H21.5l-7.5 8.57L22.5 22h-6.6l-5.17-6.76L4.8 22H1.54l8.02-9.17L1.5 2h6.77l4.67 6.17L18.244 2Zm-1.16 18h1.8L7.02 3.9H5.09L17.084 20Z',
+  },
+  {
+    label: 'Facebook',
+    path: 'M13.5 9H16l.5-3h-3V4.2c0-.86.3-1.45 1.5-1.45H16.6V.1C16.27.06 15.2 0 13.96 0 11.36 0 9.6 1.57 9.6 4.45V6H7v3h2.6v9h3.9V9Z',
+  },
+  { label: 'Instagram', path: '' },
+  {
+    label: 'LinkedIn',
+    path: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9V9Z',
+  },
 ];
 
 export default function Footer() {
+  const [subscribed, setSubscribed] = useState(false);
+
+  const subscribe = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubscribed(true);
+  };
+
   return (
-    <footer className="bg-brand-dark text-white">
-      {/* CTA Band */}
-      <div className="bg-brand-orange">
-        <div className="container-site py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-bold text-white font-serif">Ready to Make a Difference?</h3>
-              <p className="text-white/80 text-sm mt-1">
-                Your support transforms lives across Northeast Nigeria.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <Link
-                href="/get-involved#donate"
-                className="inline-flex items-center gap-2 bg-white text-brand-orange font-bold px-6 py-3 rounded-lg hover:bg-purple-50 transition-colors shadow-md"
+    <footer style={{ background: 'var(--ink-deep)', color: 'rgba(255,255,255,.7)' }}>
+      <div
+        style={{
+          maxWidth: 1240,
+          margin: '0 auto',
+          padding: '58px clamp(18px,5vw,64px) 30px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
+          gap: 40,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 11, marginBottom: 16 }}>
+            <Logo size={30} />
+            <span style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 800, fontSize: 19, color: '#fff' }}>Haske</span>
+          </div>
+          <p style={{ fontSize: 13.5, lineHeight: 1.65, color: 'rgba(255,255,255,.62)', maxWidth: 300 }}>
+            A woman-led, youth-driven humanitarian NGO bringing light, dignity and protection to crisis-affected
+            communities across Northern Nigeria.
+          </p>
+          <div style={{ display: 'flex', gap: 9, marginTop: 18 }}>
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href="#"
+                aria-label={s.label}
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: 9,
+                  border: '1px solid rgba(255,255,255,.16)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
-                Donate Now <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/get-involved#partners"
-                className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-brand-orange transition-colors"
-              >
-                Partner With Us
-              </Link>
-            </div>
+                {s.label === 'Instagram' ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5.5" />
+                    <circle cx="12" cy="12" r="4.2" />
+                    <circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none" />
+                  </svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path d={s.path} />
+                  </svg>
+                )}
+              </a>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Main footer */}
-      <div className="container-site py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand column */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center mb-5">
-              <div className="w-40 h-40 relative flex-shrink-0">
-                <Image
-                  src="/images/hhai-logo.png"
-                  alt="HHAI Logo"
-                  fill
-                  className="object-contain drop-shadow-lg"
-                  sizes="160px"
-                />
-              </div>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#fff', marginBottom: 15 }}>
+            Explore
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13.5 }}>
+            {EXPLORE.map((l) => (
+              <Link key={l.label} href={l.href} className="ulink" style={{ color: 'rgba(255,255,255,.7)' }}>
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#fff', marginBottom: 15 }}>
+            Programs
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13.5 }}>
+            {PROGRAMS.map((label) => (
+              <Link key={label} href="/what-we-do" className="ulink" style={{ color: 'rgba(255,255,255,.7)' }}>
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#fff', marginBottom: 15 }}>
+            Stay in the light
+          </div>
+          <p style={{ fontSize: 13, lineHeight: 1.6, color: 'rgba(255,255,255,.6)', marginBottom: 13 }}>
+            Field stories and impact updates — never spam.
+          </p>
+          {subscribed ? (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 9,
+                padding: '12px 14px',
+                background: 'rgba(232,169,59,.14)',
+                border: '1px solid rgba(232,169,59,.34)',
+                borderRadius: 11,
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--gold)',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              You&apos;re subscribed — thank you!
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Building an enabling environment where women and children&apos;s health needs are prioritised, through community engagement and sustainable rural development across Nigeria since 2022.
-            </p>
-            <div className="space-y-2.5 text-sm text-gray-400">
-              <div className="flex items-start gap-2.5">
-                <MapPin size={14} className="text-brand-orange mt-0.5 flex-shrink-0" />
-                <span>No. 23 Kofara Upper Agric Quarters,<br />Jimeta-Yola North, Adamawa State</span>
-              </div>
-              <a href="tel:+2347067604582" className="flex items-center gap-2.5 hover:text-brand-orange transition-colors">
-                <Phone size={14} className="text-brand-orange flex-shrink-0" />
-                +234 706 760 4582
-              </a>
-              <a href="mailto:haskehumanitarianaidinitiative@gmail.com" className="flex items-center gap-2.5 hover:text-brand-orange transition-colors">
-                <Mail size={14} className="text-brand-orange flex-shrink-0" />
-                haskehumanitarianaidinitiative@gmail.com
-              </a>
-            </div>
-          </div>
-
-          {/* Programs */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-wider mb-5 border-l-2 border-brand-orange pl-3">
-              Our Programs
-            </h4>
-            <ul className="space-y-2.5">
-              {programs.map((p) => (
-                <li key={p.href}>
-                  <Link
-                    href={p.href}
-                    className="text-gray-400 text-sm hover:text-brand-orange transition-colors flex items-center gap-2 group"
-                  >
-                    <ArrowRight size={12} className="text-brand-orange opacity-0 group-hover:opacity-100 transition-opacity -ml-4 group-hover:ml-0" />
-                    {p.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Quick links */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-wider mb-5 border-l-2 border-brand-orange pl-3">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5">
-              {quickLinks.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-gray-400 text-sm hover:text-brand-orange transition-colors flex items-center gap-2 group"
-                  >
-                    <ArrowRight size={12} className="text-brand-orange opacity-0 group-hover:opacity-100 transition-opacity -ml-4 group-hover:ml-0" />
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter + Social */}
-          <div>
-            <h4 className="font-bold text-white text-sm uppercase tracking-wider mb-5 border-l-2 border-brand-orange pl-3">
-              Stay Connected
-            </h4>
-            <p className="text-gray-400 text-sm mb-4">
-              Subscribe to our newsletter for the latest updates from the field.
-            </p>
-            <form className="space-y-2" action="#">
+          ) : (
+            <form onSubmit={subscribe} style={{ display: 'flex', gap: 8 }}>
               <input
                 type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+                required
+                placeholder="you@email.com"
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  height: 44,
+                  padding: '0 13px',
+                  borderRadius: 10,
+                  border: '1px solid rgba(255,255,255,.18)',
+                  background: 'rgba(255,255,255,.07)',
+                  color: '#fff',
+                  fontSize: 13,
+                  outline: 'none',
+                }}
               />
               <button
                 type="submit"
-                className="w-full bg-brand-orange hover:bg-purple-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors"
+                style={{
+                  padding: '0 16px',
+                  borderRadius: 10,
+                  background: 'var(--gold)',
+                  color: '#3a2a06',
+                  fontWeight: 700,
+                  fontSize: 13,
+                  whiteSpace: 'nowrap',
+                }}
               >
-                Subscribe
+                Join
               </button>
             </form>
-
-            <div className="mt-6">
-              <p className="text-gray-500 text-xs uppercase tracking-wider mb-3">Follow Us</p>
-              <div className="flex items-center gap-2">
-                {social.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.name}
-                    className="w-8 h-8 bg-white/10 hover:bg-brand-orange rounded-lg flex items-center justify-center transition-colors group"
-                  >
-                    <s.icon size={15} className="text-gray-400 group-hover:text-white transition-colors" />
-                  </a>
-                ))}
-              </div>
-            </div>
+          )}
+          <div style={{ marginTop: 16, fontSize: 12.5, lineHeight: 1.5, color: 'rgba(255,255,255,.55)' }}>
+            hr@haskeinitiative.org
+            <br />
+            Maiduguri, Borno State · Nigeria
           </div>
         </div>
       </div>
 
-      {/* Donor/partner bar */}
-      <div className="border-t border-white/10">
-        <div className="container-site py-5">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-            <p>
-              Registered NGO in Nigeria | CAC No: 182258 | Adamawa &amp; Bauchi States | Est. 2022
-            </p>
-            <p className="text-center">
-              Supported by:{' '}
-              <span className="text-gray-400">USAID · ECHO · UNHCR · UNICEF · WFP · OCHA</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom bar */}
-      <div className="bg-black/30 border-t border-white/5">
-        <div className="container-site py-5">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 relative flex-shrink-0 rounded-full bg-white p-0.5 ring-1 ring-white/20">
-                <Image
-                  src="/images/hhai-logo.png"
-                  alt="HHAI"
-                  fill
-                  className="object-contain rounded-full"
-                  sizes="36px"
-                />
-              </div>
-              <p>© {new Date().getFullYear()} Haske Humanitarian Aid Initiative (HHAI). All rights reserved.</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/privacy-policy" className="hover:text-gray-400 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-gray-400 transition-colors">Terms of Use</Link>
-              <Link href="/sitemap" className="hover:text-gray-400 transition-colors">Sitemap</Link>
-            </div>
-          </div>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,.1)' }}>
+        <div
+          style={{
+            maxWidth: 1240,
+            margin: '0 auto',
+            padding: '18px clamp(18px,5vw,64px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 16,
+            flexWrap: 'wrap',
+            fontSize: 12,
+            color: 'rgba(255,255,255,.5)',
+          }}
+        >
+          <span>© 2026 Haske Humanitarian Aid Initiative · Registered NNGO, Nigeria</span>
+          <span style={{ fontStyle: 'italic', fontFamily: "'Newsreader',serif", fontSize: 14, color: 'rgba(255,255,255,.62)' }}>
+            &ldquo;Haske&rdquo; means light in Hausa.
+          </span>
+          <span style={{ display: 'flex', gap: 18 }}>
+            <a href="#" className="ulink">Privacy</a>
+            <a href="#" className="ulink">Terms</a>
+            <a href="#" className="ulink">Safeguarding</a>
+          </span>
         </div>
       </div>
     </footer>
