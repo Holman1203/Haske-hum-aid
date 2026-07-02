@@ -6,19 +6,21 @@ const GRAIN = 'var(--grain)';
 export const metadata: Metadata = {
   title: 'What We Do',
   description:
-    'From prevention to recovery — our programs combine immediate humanitarian relief with long-term resilience: GBV prevention & response, WASH, humanitarian relief, and women & youth empowerment.',
+    'From prevention to recovery — our thematic areas combine immediate humanitarian relief with long-term resilience: Protection, WASH, Education, Health, Livelihoods & Resilience, and Advocacy & Gender Equality.',
 };
 
 const programs = [
   {
+    id: 'protection',
     icon: '🛡️',
     iconBg: '#F4EEFB',
     tag: 'Protection',
-    title: 'GBV Prevention & Response',
+    title: 'Protection',
     long: 'We work to eradicate gender-based violence through prevention — sensitization, awareness-raising and community engagement — and through response: survivor-centered medical services, referrals, and case management that restore safety and dignity.',
-    chips: ['Sensitization', 'Medical care', 'Case management', 'Referrals'],
+    chips: ['GBV prevention', 'Medical care', 'Case management', 'Referrals'],
   },
   {
+    id: 'wash',
     icon: '💧',
     iconBg: '#E7F3FB',
     tag: 'WASH',
@@ -27,20 +29,40 @@ const programs = [
     chips: ['Clean water', 'Hygiene kits', 'Latrines', 'KAP surveys'],
   },
   {
-    icon: '🏕️',
+    id: 'education',
+    icon: '🎓',
     iconBg: '#FFF1E0',
-    tag: 'Emergency',
-    title: 'Humanitarian Relief',
-    long: 'When crisis strikes, we move fast — providing life-saving relief and protection to internally displaced persons, returnees and host communities, and strengthening preparedness for future shocks.',
-    chips: ['IDPs', 'Returnees', 'Host communities'],
+    tag: 'Education',
+    title: 'Education in Emergencies',
+    long: 'We create safe, protective learning spaces for out-of-school, Almajiri and displaced children — keeping a generation in school and restoring routine, hope and opportunity in the middle of crisis.',
+    chips: ['Safe learning spaces', 'Almajiri children', 'Back-to-school'],
   },
   {
+    id: 'health',
+    icon: '🩺',
+    iconBg: '#E7F3FB',
+    tag: 'Health',
+    title: 'Health & Psychosocial Support',
+    long: 'We deliver primary healthcare, medical outreach, mental-health and psychosocial care, and protection referral pathways for people affected by crisis — including nutrition support for mothers and children.',
+    chips: ['Primary healthcare', 'MHPSS', 'Nutrition', 'Referral pathways'],
+  },
+  {
+    id: 'livelihoods',
     icon: '🌱',
     iconBg: '#E9F6EE',
-    tag: 'Empowerment',
-    title: 'Women & Youth Empowerment',
-    long: 'We advocate against deep-rooted gender inequalities and equip the most vulnerable with education, skills and livelihoods — building resilience and self-reliance for women, youth and people with disabilities.',
-    chips: ['Advocacy', 'Skills & livelihoods', 'Education', 'Inclusion'],
+    tag: 'Livelihoods',
+    title: 'Livelihoods & Resilience',
+    long: 'We equip IDPs, returnees and host communities with skills, cash support and capacity-building that rebuild self-reliance — turning emergency relief into lasting economic resilience.',
+    chips: ['Skills training', 'Cash transfers', 'Self-reliance'],
+  },
+  {
+    id: 'advocacy',
+    icon: '📣',
+    iconBg: '#F4EEFB',
+    tag: 'Advocacy',
+    title: 'Advocacy & Gender Equality',
+    long: 'We campaign with stakeholders against systemic inequality and harmful practices — promoting the rights of women, girls, young people and persons with disabilities across Northern Nigeria.',
+    chips: ['Campaigns', 'Gender equality', 'Inclusion', 'Rights'],
   },
 ];
 
@@ -95,6 +117,7 @@ export default function WhatWeDoPage() {
           {programs.map((p) => (
             <div
               key={p.title}
+              id={p.id}
               data-reveal
               className="stack-m"
               style={{
@@ -106,6 +129,7 @@ export default function WhatWeDoPage() {
                 padding: 'clamp(24px,3vw,40px)',
                 background: '#fff',
                 flexWrap: 'wrap',
+                scrollMarginTop: 90,
               }}
             >
               <div

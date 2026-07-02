@@ -3,32 +3,102 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import { useQuickExit } from '@/components/layout/QuickExit';
 
-const LINKS = [
-  { href: '/about', label: 'About' },
-  { href: '/what-we-do', label: 'What We Do' },
-  { href: '/get-involved', label: 'Get Involved' },
-  { href: '/contact', label: 'Contact' },
+interface NavChild {
+  href: string;
+  label: string;
+}
+interface NavItem {
+  label: string;
+  href?: string;
+  children?: NavChild[];
+}
+
+const NAV: NavItem[] = [
+  { label: 'Home', href: '/' },
+  {
+    label: 'About Us',
+    children: [
+      { href: '/about#who-we-are', label: 'Who We Are' },
+      { href: '/about#team', label: 'Our Team' },
+      { href: '/about#values', label: 'Our Core Values' },
+    ],
+  },
+  {
+    label: 'What We Do',
+    children: [
+      { href: '/what-we-do#protection', label: 'Protection' },
+      { href: '/what-we-do#wash', label: 'WASH' },
+      { href: '/what-we-do#education', label: 'Education' },
+      { href: '/what-we-do#health', label: 'Health' },
+      { href: '/what-we-do#livelihoods', label: 'Livelihoods & Resilience' },
+      { href: '/what-we-do#advocacy', label: 'Advocacy & Gender Equality' },
+    ],
+  },
+  {
+    label: 'Get Involved',
+    children: [
+      { href: '/get-involved#careers', label: 'Career' },
+      { href: '/get-involved#partnership', label: 'Partnership' },
+    ],
+  },
+  { label: 'Contact Us', href: '/contact' },
 ];
+
+/** Hash hrefs render as plain <a> — the client router swallows same-page hash navigation. */
+function NavAnchor({
+  href,
+  children,
+  onClick,
+  style,
+  className,
+}: {
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+  className?: string;
+}) {
+  return href.includes('#') ? (
+    <a href={href} onClick={onClick} style={style} className={className}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href} onClick={onClick} style={style} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 export default function Header() {
   const [mobileNav, setMobileNav] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
   const pathname = usePathname();
   const { activate } = useQuickExit();
 
-  const close = () => setMobileNav(false);
+  const close = () => {
+    setMobileNav(false);
+    setMobileOpen(null);
+  };
+
+  const isActive = (item: NavItem) => {
+    if (item.href) return item.href === '/' ? pathname === '/' : pathname === item.href;
+    return (item.children ?? []).some((c) => pathname === c.href.replace(/#.*$/, ''));
+  };
 
   return (
     <>
       {/* Safety utility bar — scrolls away with the page; only the nav below stays sticky. */}
-      <div style={{ background: 'var(--ink-deep)', color: 'rgba(255,255,255,.82)' }}>
+      <div style={{ background: 'var(--primary-darkest)', color: 'rgba(255,255,255,.82)' }}>
         <div
           style={{
-            maxWidth: 1240,
+            maxWidth: 1280,
             margin: '0 auto',
-            padding: '0 clamp(18px,5vw,64px)',
+            padding: '0 clamp(18px,4vw,48px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -44,8 +114,8 @@ export default function Header() {
                 width: 7,
                 height: 7,
                 borderRadius: '50%',
-                background: 'var(--gold)',
-                boxShadow: '0 0 0 4px rgba(232,169,59,.18)',
+                background: 'var(--orange)',
+                boxShadow: '0 0 0 4px rgba(247,148,29,.2)',
                 flexShrink: 0,
               }}
             />
@@ -88,98 +158,121 @@ export default function Header() {
           position: 'sticky',
           top: 0,
           zIndex: 200,
-          background: 'rgba(41,22,65,.95)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(255,255,255,.09)',
+          background: 'rgba(75,46,131,.92)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          borderBottom: '1px solid rgba(255,255,255,.1)',
         }}
       >
         <div
           style={{
-            maxWidth: 1240,
+            maxWidth: 1280,
             margin: '0 auto',
-            padding: '0 clamp(18px,5vw,64px)',
+            padding: '0 clamp(18px,4vw,48px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: 20,
-            height: 70,
+            height: 72,
           }}
         >
-          <Link href="/" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
-            <Logo size={40} />
-            <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.05 }}>
-              <span style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 800, fontSize: 21, letterSpacing: '-.02em', color: '#fff' }}>
-                Haske
-              </span>
-              <span
-                style={{
-                  fontSize: 8,
-                  fontWeight: 600,
-                  letterSpacing: '.2em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,.55)',
-                  marginTop: 3,
-                }}
-              >
-                Humanitarian Aid Initiative
-              </span>
-            </span>
+          <Link href="/" onClick={close} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }} aria-label="Haske Humanitarian Aid Initiative — Home">
+            <Logo size={50} />
           </Link>
 
-          <nav className="nav-desktop" style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
-            {LINKS.map((l) => {
-              const active = pathname === l.href;
+          <nav className="nav-desktop" style={{ display: 'flex', gap: 26, alignItems: 'center' }}>
+            {NAV.map((item) => {
+              const active = isActive(item);
+              const labelStyle = {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                fontSize: 14,
+                fontWeight: 500,
+                color: active ? '#fff' : 'rgba(255,255,255,.78)',
+                paddingBottom: 3,
+                borderBottom: active ? '2px solid var(--orange)' : '2px solid transparent',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+              } as const;
+
+              if (!item.children) {
+                return (
+                  <Link key={item.label} href={item.href!} style={labelStyle}>
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              const open = openDropdown === item.label;
               return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 500,
-                    color: active ? '#fff' : 'rgba(255,255,255,.72)',
-                    paddingBottom: 3,
-                    borderBottom: active ? '2px solid var(--gold)' : '2px solid transparent',
-                  }}
+                <div
+                  key={item.label}
+                  style={{ position: 'relative', paddingBottom: 24, marginBottom: -24 }}
+                  onMouseEnter={() => setOpenDropdown(item.label)}
+                  onMouseLeave={() => setOpenDropdown((cur) => (cur === item.label ? null : cur))}
                 >
-                  {l.label}
-                </Link>
+                  <span style={labelStyle} aria-haspopup="true" aria-expanded={open}>
+                    {item.label}
+                    <ChevronDown size={14} style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s ease' }} />
+                  </span>
+                  {open && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 'calc(100% - 2px)',
+                        left: -14,
+                        minWidth: 240,
+                        background: '#fff',
+                        borderRadius: 14,
+                        boxShadow: '0 24px 55px -18px rgba(46,27,71,.45)',
+                        border: '1px solid var(--line)',
+                        padding: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        animation: 'heroFadeUp .22s ease both',
+                      }}
+                    >
+                      {item.children.map((c) => (
+                        <NavAnchor
+                          key={c.label}
+                          href={c.href}
+                          onClick={() => setOpenDropdown(null)}
+                          style={{
+                            padding: '11px 14px',
+                            borderRadius: 9,
+                            fontSize: 13.5,
+                            fontWeight: 600,
+                            color: 'var(--primary-deep)',
+                          }}
+                          className="drop-item"
+                        >
+                          {c.label}
+                        </NavAnchor>
+                      ))}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </nav>
 
-          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Link
-              href="/contact"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 7,
-                border: '1px solid rgba(255,255,255,.28)',
-                padding: '9px 14px',
-                borderRadius: 10,
-                fontSize: 13,
-                fontWeight: 600,
-                color: '#fff',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--gold)' }} />
-              Get Help
-            </Link>
+          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center' }}>
             <Link
               href="/get-involved"
+              className="lift"
               style={{
-                padding: '10px 18px',
+                padding: '11px 22px',
                 borderRadius: 10,
                 fontSize: 13.5,
                 fontWeight: 700,
-                background: 'var(--gold)',
-                color: '#3a2a06',
+                background: 'var(--orange)',
+                color: '#fff',
                 whiteSpace: 'nowrap',
+                boxShadow: '0 8px 22px -8px rgba(247,148,29,.7)',
               }}
             >
-              Donate
+              Donate Now
             </Link>
           </div>
 
@@ -192,8 +285,8 @@ export default function Header() {
               width: 44,
               height: 44,
               borderRadius: 12,
-              background: 'var(--gold)',
-              color: '#3a2a06',
+              background: 'var(--orange)',
+              color: '#fff',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: 20,
@@ -210,7 +303,7 @@ export default function Header() {
             position: 'fixed',
             inset: 0,
             zIndex: 199,
-            background: 'rgba(28,22,38,.55)',
+            background: 'rgba(46,27,71,.6)',
             backdropFilter: 'blur(4px)',
           }}
           onClick={close}
@@ -223,63 +316,92 @@ export default function Header() {
               right: 0,
               bottom: 0,
               width: 'min(82vw,340px)',
-              background: 'var(--ink)',
-              padding: '28px 28px 28px',
+              background: 'var(--primary-deep)',
+              padding: '28px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 6,
-              boxShadow: '-20px 0 60px rgba(28,22,38,.25)',
+              gap: 2,
+              boxShadow: '-20px 0 60px rgba(46,27,71,.4)',
+              overflowY: 'auto',
             }}
           >
-            {LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={close}
-                style={{
-                  textAlign: 'left',
-                  fontFamily: "'Bricolage Grotesque'",
-                  fontWeight: 700,
-                  fontSize: 24,
-                  color: '#fff',
-                  padding: '14px 0',
-                  borderBottom: '1px solid rgba(255,255,255,.1)',
-                }}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <Link
-              href="/contact"
-              onClick={close}
-              style={{
-                marginTop: 18,
-                border: '1px solid rgba(255,255,255,.28)',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: 16,
-                padding: 14,
-                borderRadius: 14,
-                textAlign: 'center',
-              }}
-            >
-              Get Help
-            </Link>
+            {NAV.map((item) => {
+              if (!item.children) {
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href!}
+                    onClick={close}
+                    style={{
+                      fontFamily: "'Playfair Display',serif",
+                      fontWeight: 700,
+                      fontSize: 20,
+                      color: '#fff',
+                      padding: '14px 0',
+                      borderBottom: '1px solid rgba(255,255,255,.12)',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+              const open = mobileOpen === item.label;
+              return (
+                <div key={item.label} style={{ borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+                  <button
+                    onClick={() => setMobileOpen(open ? null : item.label)}
+                    aria-expanded={open}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      fontFamily: "'Playfair Display',serif",
+                      fontWeight: 700,
+                      fontSize: 20,
+                      color: '#fff',
+                      padding: '14px 0',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {item.label}
+                    <ChevronDown size={18} style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s ease' }} />
+                  </button>
+                  {open && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 2, paddingBottom: 12 }}>
+                      {item.children.map((c) => (
+                        <NavAnchor
+                          key={c.label}
+                          href={c.href}
+                          onClick={close}
+                          style={{ padding: '9px 0 9px 14px', fontSize: 14.5, fontWeight: 500, color: 'rgba(255,255,255,.85)' }}
+                        >
+                          {c.label}
+                        </NavAnchor>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <Link
               href="/get-involved"
               onClick={close}
               style={{
-                marginTop: 10,
-                background: 'var(--gold)',
-                color: '#3a2a06',
+                marginTop: 20,
+                background: 'var(--orange)',
+                color: '#fff',
                 fontWeight: 700,
-                fontSize: 17,
+                fontSize: 16,
                 padding: 15,
-                borderRadius: 14,
+                borderRadius: 12,
                 textAlign: 'center',
               }}
             >
-              Donate
+              Donate Now
             </Link>
           </div>
         </div>

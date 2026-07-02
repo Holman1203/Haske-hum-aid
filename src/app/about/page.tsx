@@ -28,7 +28,7 @@ export default function AboutPage() {
     <main id="main-content">
       <RevealObserver />
 
-      <section style={{ padding: 'clamp(48px,6vw,70px) clamp(18px,5vw,64px) clamp(40px,5vw,70px)', background: '#fff' }}>
+      <section id="who-we-are" style={{ padding: 'clamp(48px,6vw,70px) clamp(18px,5vw,64px) clamp(40px,5vw,70px)', background: '#fff', scrollMarginTop: 90 }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <div
             style={{
@@ -124,7 +124,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section style={{ padding: 'clamp(40px,5vw,80px) clamp(18px,5vw,64px)' }}>
+      <section id="values" style={{ padding: 'clamp(40px,5vw,80px) clamp(18px,5vw,64px)', scrollMarginTop: 90 }}>
         <div style={{ maxWidth: 1080, margin: '0 auto' }}>
           <h2 data-reveal style={{ fontSize: 'clamp(28px,3.8vw,44px)', fontWeight: 800, marginBottom: 36 }}>
             What we stand for
@@ -146,7 +146,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section style={{ padding: 'clamp(48px,6vw,90px) clamp(18px,5vw,64px)', background: '#fff' }}>
+      <section id="team" style={{ padding: 'clamp(48px,6vw,90px) clamp(18px,5vw,64px)', background: '#fff', scrollMarginTop: 90 }}>
         <div style={{ maxWidth: 1080, margin: '0 auto' }}>
           <div data-reveal style={{ marginBottom: 36 }}>
             <div

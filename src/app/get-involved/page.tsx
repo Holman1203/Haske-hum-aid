@@ -108,8 +108,8 @@ export default function GetInvolvedPage() {
   ];
 
   const otherWays = [
-    { icon: '🙋', title: 'Volunteer', desc: 'Lend your time and skills to programs in the field or remotely.', cta: 'Join the team' },
-    { icon: '🤝', title: 'Partner with us', desc: 'Foundations, agencies and businesses — let’s scale impact together.', cta: 'Start a conversation' },
+    { id: 'careers', icon: '🙋', title: 'Careers & Volunteering', desc: 'Build your career with us or lend your time and skills to programs in the field or remotely.', cta: 'Join the team' },
+    { id: 'partnership', icon: '🤝', title: 'Partnership', desc: 'Foundations, agencies and businesses — let’s scale impact together.', cta: 'Start a conversation' },
   ];
 
   const segBtn = (active: boolean): React.CSSProperties => ({
@@ -500,9 +500,10 @@ export default function GetInvolvedPage() {
           {otherWays.map((o) => (
             <div
               key={o.title}
+              id={o.id}
               data-reveal
               className="lift"
-              style={{ border: '1px solid rgba(28,22,38,.09)', borderRadius: 20, padding: 28, background: '#fff' }}
+              style={{ border: '1px solid rgba(28,22,38,.09)', borderRadius: 20, padding: 28, background: '#fff', scrollMarginTop: 90 }}
             >
               <div style={{ fontSize: 30, marginBottom: 14 }}>{o.icon}</div>
               <h4 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>{o.title}</h4>
