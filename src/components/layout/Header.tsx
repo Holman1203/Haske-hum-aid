@@ -114,8 +114,8 @@ export default function Header() {
                 width: 7,
                 height: 7,
                 borderRadius: '50%',
-                background: 'var(--orange)',
-                boxShadow: '0 0 0 4px rgba(247,148,29,.2)',
+                background: 'var(--secondary)',
+                boxShadow: '0 0 0 4px rgba(58,170,53,.2)',
                 flexShrink: 0,
               }}
             />
@@ -191,7 +191,7 @@ export default function Header() {
                 fontWeight: 500,
                 color: active ? '#fff' : 'rgba(255,255,255,.78)',
                 paddingBottom: 3,
-                borderBottom: active ? '2px solid var(--orange)' : '2px solid transparent',
+                borderBottom: active ? '2px solid var(--secondary)' : '2px solid transparent',
                 whiteSpace: 'nowrap',
                 cursor: 'pointer',
               } as const;
@@ -266,10 +266,10 @@ export default function Header() {
                 borderRadius: 10,
                 fontSize: 13.5,
                 fontWeight: 700,
-                background: 'var(--orange)',
+                background: 'var(--secondary)',
                 color: '#fff',
                 whiteSpace: 'nowrap',
-                boxShadow: '0 8px 22px -8px rgba(247,148,29,.7)',
+                boxShadow: '0 8px 22px -8px rgba(58,170,53,.7)',
               }}
             >
               Donate Now
@@ -285,7 +285,7 @@ export default function Header() {
               width: 44,
               height: 44,
               borderRadius: 12,
-              background: 'var(--orange)',
+              background: 'var(--secondary)',
               color: '#fff',
               alignItems: 'center',
               justifyContent: 'center',
@@ -392,7 +392,7 @@ export default function Header() {
               onClick={close}
               style={{
                 marginTop: 20,
-                background: 'var(--orange)',
+                background: 'var(--secondary)',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: 16,

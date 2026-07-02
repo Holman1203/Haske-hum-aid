@@ -74,7 +74,7 @@ export default function HomeStats() {
               }}
             >
               {fmt(counts[i])}
-              <span style={{ color: 'var(--orange)' }}>{s.suffix}</span>
+              <span style={{ color: 'var(--secondary)' }}>{s.suffix}</span>
             </div>
             <div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--muted)', marginTop: 9 }}>{s.label}</div>
           </div>

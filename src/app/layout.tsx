@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import QuickExitProvider from '@/components/layout/QuickExit';
+import ChatBot from '@/components/layout/ChatBot';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://haskeinitiative.org'),
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           {children}
           <Footer />
+          <ChatBot />
         </QuickExitProvider>
       </body>
     </html>

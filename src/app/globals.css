@@ -129,7 +129,7 @@ img { max-width: 100%; display: block; }
   bottom: -3px;
   height: 2px;
   width: 0;
-  background: var(--orange);
+  background: var(--secondary);
   transition: width .3s ease;
 }
 .ulink:hover::after { width: 100%; }

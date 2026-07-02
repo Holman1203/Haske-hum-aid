@@ -3,7 +3,8 @@
 import { useState } from 'react';
 
 const CONTACT_INFO = [
-  { icon: '✉️', label: 'Email', value: 'hr@haskeinitiative.org' },
+  { icon: '📞', label: 'Phone', value: '+234 809 225 5840', href: 'tel:+2348092255840' },
+  { icon: '✉️', label: 'Email', value: 'hr@haskeinitiative.org', href: 'mailto:hr@haskeinitiative.org' },
   { icon: '📍', label: 'Where we work', value: 'North-East & North-West Nigeria' },
   { icon: '🗓️', label: 'Established', value: 'Registered NNGO · 2022' },
 ];
@@ -107,7 +108,13 @@ export default function ContactPage() {
                     >
                       {c.label}
                     </div>
-                    <div style={{ fontWeight: 600, fontSize: 15.5 }}>{c.value}</div>
+                    {c.href ? (
+                      <a href={c.href} style={{ fontWeight: 600, fontSize: 15.5, color: 'inherit' }}>
+                        {c.value}
+                      </a>
+                    ) : (
+                      <div style={{ fontWeight: 600, fontSize: 15.5 }}>{c.value}</div>
+                    )}
                   </div>
                 </div>
               ))}

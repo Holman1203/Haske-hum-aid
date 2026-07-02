@@ -144,118 +144,7 @@ export default function HomePage() {
           background: 'var(--primary-darkest)',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-          <HeroCarousel />
-          {/* Deep purple gradient overlay for readability */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(100deg, rgba(46,27,71,.93) 0%, rgba(75,46,131,.8) 42%, rgba(75,46,131,.34) 100%)',
-              pointerEvents: 'none',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 2,
-            maxWidth: 1280,
-            width: '100%',
-            margin: '0 auto',
-            padding: 'clamp(80px,12vh,140px) clamp(18px,4vw,48px) clamp(120px,16vh,160px)',
-          }}
-        >
-          <div style={{ maxWidth: 760 }}>
-            <span
-              style={{
-                ...eyebrow('#FFC97E'),
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 9,
-                animation: 'heroFadeUp .9s .1s cubic-bezier(.16,.84,.34,1) both',
-              }}
-            >
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--orange)' }} />
-              Woman-led · Youth-driven · Est. 2022
-            </span>
-            <h1
-              style={{
-                fontSize: 'clamp(42px,6.2vw,76px)',
-                color: '#fff',
-                margin: '20px 0 0',
-                textShadow: '0 2px 30px rgba(46,27,71,.4)',
-                animation: 'heroFadeUp .9s .25s cubic-bezier(.16,.84,.34,1) both',
-              }}
-            >
-              Restoring Hope.
-              <br />
-              Transforming <span style={{ color: 'var(--orange)', fontStyle: 'italic' }}>Communities.</span>
-            </h1>
-            <p
-              style={{
-                margin: '24px 0 0',
-                maxWidth: 560,
-                fontSize: 'clamp(16px,1.4vw,18.5px)',
-                lineHeight: 1.65,
-                color: 'rgba(255,255,255,.88)',
-                animation: 'heroFadeUp .9s .4s cubic-bezier(.16,.84,.34,1) both',
-              }}
-            >
-              Haske Humanitarian Aid Initiative improves lives through humanitarian assistance and sustainable
-              development across Nigeria — delivering health, nutrition, education, protection and dignity to the
-              communities that need it most.
-            </p>
-            <div
-              style={{
-                display: 'flex',
-                gap: 14,
-                marginTop: 34,
-                flexWrap: 'wrap',
-                animation: 'heroFadeUp .9s .55s cubic-bezier(.16,.84,.34,1) both',
-              }}
-            >
-              <Link
-                href="/what-we-do"
-                className="lift"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 9,
-                  height: 54,
-                  padding: '0 28px',
-                  borderRadius: 12,
-                  background: 'var(--orange)',
-                  color: '#fff',
-                  fontWeight: 700,
-                  fontSize: 15.5,
-                  boxShadow: '0 16px 36px -12px rgba(247,148,29,.65)',
-                }}
-              >
-                Explore Our Programs <ArrowRight size={17} />
-              </Link>
-              <Link
-                href="/contact"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  height: 54,
-                  padding: '0 26px',
-                  borderRadius: 12,
-                  border: '1.5px solid rgba(255,255,255,.45)',
-                  background: 'rgba(255,255,255,.08)',
-                  backdropFilter: 'blur(6px)',
-                  color: '#fff',
-                  fontWeight: 600,
-                  fontSize: 15,
-                }}
-              >
-                Partner With Us
-              </Link>
-            </div>
-          </div>
-        </div>
+        <HeroCarousel />
 
         <div
           style={{
@@ -322,7 +211,7 @@ export default function HomePage() {
           </MotionReveal>
 
           <MotionReveal delay={0.12} style={{ flex: '1 1 440px', minWidth: 280 }}>
-            <span style={eyebrow('var(--orange)')}>About Haske</span>
+            <span style={eyebrow('var(--secondary)')}>About Haske</span>
             <h2 style={{ fontSize: 'clamp(30px,3.4vw,44px)', color: 'var(--primary-deep)', margin: '16px 0 0' }}>
               Pursuing holistic care for humanity.
             </h2>
@@ -365,7 +254,7 @@ export default function HomePage() {
       <section style={{ background: 'var(--gray)', padding: 'clamp(64px,8vw,100px) clamp(18px,4vw,48px)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto' }}>
           <MotionReveal style={{ textAlign: 'center', maxWidth: 640, margin: '0 auto 46px' }}>
-            <span style={eyebrow('var(--orange)')}>Our Focus Areas</span>
+            <span style={eyebrow('var(--secondary)')}>Our Focus Areas</span>
             <h2 style={{ fontSize: 'clamp(30px,3.4vw,44px)', color: 'var(--primary-deep)', margin: '14px 0 0' }}>
               Seven pathways to lasting change
             </h2>
@@ -406,7 +295,7 @@ export default function HomePage() {
                   </span>
                   <h3 style={{ fontSize: 20, color: 'var(--primary-deep)', margin: '18px 0 0' }}>{f.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--muted)', margin: '9px 0 0' }}>{f.desc}</p>
-                  <div style={{ marginTop: 16, fontSize: 13.5, fontWeight: 700, color: 'var(--orange)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ marginTop: 16, fontSize: 13.5, fontWeight: 700, color: 'var(--secondary)', display: 'flex', alignItems: 'center', gap: 6 }}>
                     Learn more <ArrowRight size={14} />
                   </div>
                 </Link>
@@ -423,7 +312,7 @@ export default function HomePage() {
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap', marginBottom: 40 }}
           >
             <div>
-              <span style={eyebrow('var(--orange)')}>Featured Projects</span>
+              <span style={eyebrow('var(--secondary)')}>Featured Projects</span>
               <h2 style={{ fontSize: 'clamp(30px,3.4vw,44px)', color: 'var(--primary-deep)', margin: '14px 0 0' }}>
                 Where your support goes to work
               </h2>
@@ -474,7 +363,7 @@ export default function HomePage() {
                   </div>
                   <div style={{ padding: '22px 24px 26px' }}>
                     <h3 style={{ fontSize: 19, lineHeight: 1.3, color: 'var(--primary-deep)' }}>{p.title}</h3>
-                    <div style={{ marginTop: 12, fontSize: 13.5, fontWeight: 600, color: 'var(--orange)' }}>{p.beneficiaries}</div>
+                    <div style={{ marginTop: 12, fontSize: 13.5, fontWeight: 600, color: 'var(--secondary)' }}>{p.beneficiaries}</div>
                   </div>
                 </Link>
               </MotionReveal>
@@ -498,7 +387,7 @@ export default function HomePage() {
           style={{ maxWidth: 1180, margin: '0 auto', display: 'flex', gap: 'clamp(36px,5vw,70px)', alignItems: 'center', flexWrap: 'wrap' }}
         >
           <MotionReveal style={{ flex: '1 1 440px', minWidth: 280 }}>
-            <span style={eyebrow('#FFC97E')}>Our Impact</span>
+            <span style={eyebrow('#8FE08A')}>Our Impact</span>
             <h2 style={{ fontSize: 'clamp(30px,3.4vw,44px)', color: '#fff', margin: '14px 0 0' }}>
               Rooted in Nigeria&apos;s hardest-hit regions
             </h2>
@@ -511,7 +400,7 @@ export default function HomePage() {
                 <div key={r.name} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                   <span style={{ width: 150, fontSize: 14, fontWeight: 600 }}>{r.name}</span>
                   <div style={{ flex: 1, height: 8, borderRadius: 999, background: 'rgba(255,255,255,.14)', overflow: 'hidden' }}>
-                    <div style={{ width: `${r.pct}%`, height: '100%', background: 'var(--orange)', borderRadius: 999 }} />
+                    <div style={{ width: `${r.pct}%`, height: '100%', background: 'var(--secondary)', borderRadius: 999 }} />
                   </div>
                 </div>
               ))}
@@ -535,7 +424,7 @@ export default function HomePage() {
                     backdropFilter: 'blur(8px)',
                   }}
                 >
-                  <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 800, fontSize: 'clamp(28px,3vw,38px)', color: 'var(--orange)' }}>
+                  <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 800, fontSize: 'clamp(28px,3vw,38px)', color: 'var(--secondary-lt)' }}>
                     {s.v}
                   </div>
                   <div style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,.75)', marginTop: 8 }}>{s.l}</div>
@@ -564,7 +453,7 @@ export default function HomePage() {
             </div>
           </MotionReveal>
           <MotionReveal delay={0.12} style={{ flex: '1 1 440px', minWidth: 280 }}>
-            <span style={eyebrow('var(--orange)')}>Success Stories</span>
+            <span style={eyebrow('var(--secondary)')}>Success Stories</span>
             <p
               style={{
                 fontFamily: "'Playfair Display',serif",
@@ -647,7 +536,7 @@ export default function HomePage() {
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap', marginBottom: 40 }}
           >
             <div>
-              <span style={eyebrow('var(--orange)')}>Latest News &amp; Updates</span>
+              <span style={eyebrow('var(--secondary)')}>Latest News &amp; Updates</span>
               <h2 style={{ fontSize: 'clamp(30px,3.4vw,44px)', color: 'var(--primary-deep)', margin: '14px 0 0' }}>
                 From the field
               </h2>
@@ -680,7 +569,7 @@ export default function HomePage() {
                   </div>
                   <div style={{ padding: '20px 24px 26px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, fontWeight: 600 }}>
-                      <span style={{ color: 'var(--orange)', textTransform: 'uppercase', letterSpacing: '.08em' }}>{n.category}</span>
+                      <span style={{ color: 'var(--secondary)', textTransform: 'uppercase', letterSpacing: '.08em' }}>{n.category}</span>
                       <span style={{ color: 'var(--muted)' }}>· {n.date}</span>
                     </div>
                     <h3 style={{ fontSize: 18, lineHeight: 1.35, color: 'var(--primary-deep)', marginTop: 10 }}>{n.title}</h3>
@@ -715,7 +604,7 @@ export default function HomePage() {
                 right: -60,
                 width: 420,
                 height: 420,
-                background: 'radial-gradient(circle,rgba(247,148,29,.28),rgba(247,148,29,0) 70%)',
+                background: 'radial-gradient(circle,rgba(58,170,53,.28),rgba(58,170,53,0) 70%)',
               }}
             />
             <div style={{ position: 'relative' }}>
@@ -736,11 +625,11 @@ export default function HomePage() {
                     alignItems: 'center',
                     padding: '0 30px',
                     borderRadius: 12,
-                    background: 'var(--orange)',
+                    background: 'var(--secondary)',
                     color: '#fff',
                     fontWeight: 700,
                     fontSize: 16,
-                    boxShadow: '0 16px 36px -12px rgba(247,148,29,.6)',
+                    boxShadow: '0 16px 36px -12px rgba(58,170,53,.6)',
                   }}
                 >
                   Donate Now

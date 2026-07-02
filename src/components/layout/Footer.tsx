@@ -116,6 +116,9 @@ export default function Footer() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13.5, lineHeight: 1.6 }}>
             <span>Maiduguri, Borno State, Nigeria</span>
+            <a href="tel:+2348092255840" className="ulink" style={{ color: 'rgba(255,255,255,.72)', width: 'fit-content' }}>
+              +234 809 225 5840
+            </a>
             <a href="mailto:hr@haskeinitiative.org" className="ulink" style={{ color: 'rgba(255,255,255,.72)', width: 'fit-content' }}>
               hr@haskeinitiative.org
             </a>
@@ -140,15 +143,15 @@ export default function Footer() {
                 alignItems: 'center',
                 gap: 9,
                 padding: '12px 14px',
-                background: 'rgba(247,148,29,.14)',
-                border: '1px solid rgba(247,148,29,.4)',
+                background: 'rgba(58,170,53,.14)',
+                border: '1px solid rgba(58,170,53,.4)',
                 borderRadius: 11,
                 fontSize: 13,
                 fontWeight: 600,
-                color: 'var(--orange)',
+                color: 'var(--secondary)',
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 6 9 17l-5-5" />
               </svg>
               You&apos;re subscribed — thank you!
@@ -177,7 +180,7 @@ export default function Footer() {
                 style={{
                   padding: '0 16px',
                   borderRadius: 10,
-                  background: 'var(--orange)',
+                  background: 'var(--secondary)',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: 13,
