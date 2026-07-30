@@ -1,161 +1,196 @@
-"use client";
+import type { Metadata } from 'next';
+import RevealObserver from '@/components/ui/RevealObserver';
 
-import { useSite } from "@/context/site-context";
-import { PageHero, PhotoPlaceholder, Pill, PrimaryButton, SecondaryButton, Stat, Wrap, type VarStyle } from "@/components/ui";
+const GRAIN = 'var(--grain)';
 
-const VALUES = [
-  { title: "Prevention", dot: "var(--amethyst)", desc: "Sensitization and early action to stop gender-based violence and crisis-driven harm before it happens." },
-  { title: "Protection", dot: "var(--gold)", desc: "Safe, do-no-harm services and referral pathways that put the safety and dignity of survivors first." },
-  { title: "Rehabilitation", dot: "var(--amethyst-dd)", desc: "Medical, psychosocial and case-management support that helps people recover and rebuild." },
-  { title: "Resilience", dot: "var(--ink)", desc: "Livelihoods and community capacity-building so recovery lasts long after the emergency response ends." },
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Haske Humanitarian Aid Initiative (HHAI) is a government-registered, woman-led and youth-driven national NGO founded in 2022 — born from a conviction that no one should face crisis without dignity.',
+};
+
+const values = [
+  { icon: '🤝', title: 'Human Dignity', desc: 'Every person we serve is met with respect, care and confidentiality.' },
+  { icon: '🏘️', title: 'Community-Led', desc: 'Solutions are built with communities, not imposed upon them.' },
+  { icon: '⚖️', title: 'Equity & Inclusion', desc: 'We prioritize women, youth and people with disabilities.' },
+  { icon: '🔍', title: 'Accountability', desc: 'Transparent, measurable impact for the people and donors we serve.' },
 ];
 
-const PRINCIPLES = [
-  { title: "Community-led", desc: "Programs are designed with, not for, the communities we serve — local staff, local knowledge, local trust." },
-  { title: "Survivor-centered", desc: "Every GBV response pathway is confidential, consent-based, and puts the survivor's safety and choices first." },
-  { title: "Do no harm", desc: "WASH, shelter and education facilities are designed to reduce — never increase — protection risks." },
-  { title: "Localization", desc: "As a Nigerian-led NNGO, we build local capacity rather than substitute for it." },
-];
-
-const LEADERSHIP = [
-  { role: "Executive Director", focus: "Organizational strategy, governance & donor partnerships" },
-  { role: "Director of Programmes", focus: "GBV, WASH, education & health programme delivery" },
-  { role: "GBV Response Lead", focus: "Survivor case management & referral pathways" },
-  { role: "Finance & Compliance Lead", focus: "Grants management, audit & regulatory compliance" },
-];
-
-const FACTS = [
-  { value: "2022", label: "Year founded" },
-  { value: "100", suffix: "%", label: "Woman-led & youth-driven" },
-  { value: "4", label: "States of operation" },
-  { value: "1", label: "Registered NNGO, Nigeria" },
+const team = [
+  { initial: 'A', name: 'Executive Director', role: 'Founder · Woman-led' },
+  { initial: 'P', name: 'Programs Director', role: 'Operations & Delivery' },
+  { initial: 'M', name: 'MEAL Lead', role: 'Monitoring & Evaluation' },
+  { initial: 'C', name: 'Community Lead', role: 'Engagement & Advocacy' },
 ];
 
 export default function AboutPage() {
-  const { openDonate } = useSite();
-
   return (
-    <div>
-      <PageHero
-        eyebrow="About us"
-        title="Founded in crisis. Built for the long run."
-        intro="Haske Humanitarian Aid Initiative (HHAI) is a government-registered, woman-led and youth-driven National NGO. Our name means light in Hausa — and it's the idea behind everything we do: bringing safety, dignity and hope back to communities living through crisis."
-      >
-        <div style={{ display: "flex", gap: 10, marginTop: 28, flexWrap: "wrap" }}>
-          <Pill dot="var(--gold)">Est. 2022</Pill>
-          <Pill dot="var(--amethyst)">Woman-led</Pill>
-          <Pill dot="var(--gold)">Youth-driven</Pill>
-          <Pill dot="var(--amethyst-dd)">Registered NNGO</Pill>
+    <main id="main-content">
+      <RevealObserver />
+
+      <section id="who-we-are" style={{ padding: 'clamp(48px,6vw,70px) clamp(18px,5vw,64px) clamp(40px,5vw,70px)', background: '#fff', scrollMarginTop: 90 }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: '.2em',
+              textTransform: 'uppercase',
+              color: '#9966CC',
+              marginBottom: 18,
+            }}
+          >
+            About us
+          </div>
+          <h1 style={{ fontSize: 'clamp(38px,6vw,76px)', fontWeight: 800, letterSpacing: '-.035em', maxWidth: '16ch' }}>
+            A woman-led movement for human dignity.
+          </h1>
+          <p style={{ fontSize: 'clamp(17px,1.6vw,21px)', color: '#4a4258', maxWidth: 680, marginTop: 24, lineHeight: 1.55 }}>
+            Haske Humanitarian Aid Initiative (HHAI) is a government-registered, woman-led and youth-driven national NGO
+            founded in 2022 — born from a conviction that no one should face crisis without dignity.
+          </p>
         </div>
-      </PageHero>
+      </section>
 
-      <section style={{ background: "#fff", borderBottom: "1px solid var(--line)" }}>
-        <Wrap className="rgrid1" style={{ alignItems: "stretch", "--cols": ".92fr 1.08fr" } as VarStyle}>
-          <PhotoPlaceholder label="Photo placeholder" caption="Founding team, Maiduguri · 2022" style={{ minHeight: 420, margin: "0 -1px" }} />
-          <div className="split-copy" style={{ "--pb": "60px", "--pis": "56px" } as VarStyle}>
-            <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)" }}>Our story</span>
-            <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "14px 0 0" }}>
-              A response born from Northeast Nigeria&apos;s displacement crisis.
-            </h2>
-            <p style={{ font: "400 15.5px/1.72 var(--font-body)", color: "var(--ink2)", marginTop: 18 }}>
-              HHAI was founded in 2022 by women and young people who had lived through — and worked inside — the humanitarian response across Borno, Adamawa and Yobe. They saw a gap: services that treated survivors of gender-based violence as case numbers, not people with dignity to protect.
+      {/* Mission & Vision */}
+      <section style={{ padding: 'clamp(48px,6vw,90px) clamp(18px,5vw,64px)' }}>
+        <div
+          style={{
+            maxWidth: 1080,
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: 24,
+          }}
+        >
+          <div data-reveal style={{ borderRadius: 20, padding: 34, background: '#fff', border: '1px solid rgba(28,22,38,.09)' }}>
+            <div
+              style={{
+                width: 54,
+                height: 54,
+                borderRadius: 15,
+                background: '#F4EEFB',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 26,
+                marginBottom: 20,
+              }}
+            >
+              🎯
+            </div>
+            <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>Our mission</h3>
+            <p style={{ fontSize: 15.5, color: '#6b6478', lineHeight: 1.6 }}>
+              To save lives and alleviate the suffering of the most vulnerable — children, young people, women and people
+              with disabilities — and to uphold human dignity during and after man-made crises and natural disasters.
             </p>
-            <p style={{ font: "400 15.5px/1.72 var(--font-body)", color: "var(--ink2)", marginTop: 14 }}>
-              We started with survivor referrals and sensitization circles in displacement camps. Today we run six integrated programs — from WASH to education in emergencies — but the founding idea hasn&apos;t changed: every person we serve deserves to be treated with dignity, not just processed.
-            </p>
           </div>
-        </Wrap>
-      </section>
-
-      <section style={{ background: "var(--paper)" }}>
-        <Wrap style={{ paddingBlock: 64 }}>
-          <div style={{ maxWidth: 640, marginBottom: 40 }}>
-            <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)" }}>Our mission</span>
-            <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "14px 0 0" }}>
-              To save lives, alleviate suffering, and maintain human dignity for the most vulnerable — during and after crisis.
-            </h2>
-          </div>
-          <div className="rgrid2" style={{ gap: 18, "--cols": "repeat(4,1fr)" } as VarStyle}>
-            {VALUES.map((v) => (
-              <div key={v.title} style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: 16, padding: 24 }}>
-                <span style={{ width: 9, height: 9, borderRadius: "50%", background: v.dot, display: "inline-block", marginBottom: 14 }} />
-                <h3 style={{ font: "700 17px var(--font-display)", color: "var(--ink)" }}>{v.title}</h3>
-                <p style={{ font: "400 13px/1.6 var(--font-body)", color: "var(--muted)", marginTop: 8 }}>{v.desc}</p>
+          <div
+            data-reveal
+            style={{
+              borderRadius: 20,
+              padding: 34,
+              background: 'linear-gradient(160deg,#9966CC,#4B2E83)',
+              color: '#fff',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: GRAIN, mixBlendMode: 'overlay', opacity: 0.35 }} />
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  width: 54,
+                  height: 54,
+                  borderRadius: 15,
+                  background: 'rgba(255,255,255,.16)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 26,
+                  marginBottom: 20,
+                }}
+              >
+                🌅
               </div>
-            ))}
-          </div>
-        </Wrap>
-      </section>
-
-      <section style={{ background: "var(--ink-deep)", color: "#fff" }}>
-        <Wrap style={{ paddingBlock: 64 }}>
-          <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--gold)" }}>How we work</span>
-          <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "#fff", margin: "14px 0 34px", maxWidth: "26ch" }}>
-            Four principles behind every program.
-          </h2>
-          <div className="rgrid2" style={{ gap: 24, "--cols": "repeat(4,1fr)" } as VarStyle}>
-            {PRINCIPLES.map((p, i) => (
-              <div key={p.title}>
-                <div style={{ font: "800 15px var(--font-display)", color: "var(--gold)", marginBottom: 10 }}>{String(i + 1).padStart(2, "0")}</div>
-                <h3 style={{ font: "700 17px var(--font-display)", color: "#fff" }}>{p.title}</h3>
-                <p style={{ font: "400 13.5px/1.6 var(--font-body)", color: "rgba(255,255,255,.68)", marginTop: 8 }}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Wrap>
-      </section>
-
-      <section style={{ background: "var(--paper)" }}>
-        <Wrap style={{ paddingBlock: 64 }}>
-          <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)" }}>Leadership</span>
-          <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "14px 0 34px" }}>
-            A woman-led, youth-driven team.
-          </h2>
-          <div className="rgrid2" style={{ gap: 20, "--cols": "repeat(4,1fr)" } as VarStyle}>
-            {LEADERSHIP.map((l) => (
-              <div key={l.role} style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: 16, padding: 22 }}>
-                <span style={{ width: 52, height: 52, borderRadius: "50%", background: "linear-gradient(140deg,#7c4fb6,#b98fdd)", display: "block", marginBottom: 16 }} />
-                <h3 style={{ font: "700 15.5px var(--font-display)", color: "var(--ink)" }}>{l.role}</h3>
-                <p style={{ font: "400 12.5px/1.55 var(--font-body)", color: "var(--muted)", marginTop: 6 }}>{l.focus}</p>
-              </div>
-            ))}
-          </div>
-        </Wrap>
-      </section>
-
-      <section style={{ background: "var(--ink)", color: "#fff" }}>
-        <Wrap className="rgrid2" style={{ paddingBlock: 50, gap: 30, "--cols": "repeat(4,1fr)" } as VarStyle}>
-          {FACTS.map((f) => (
-            <Stat key={f.label} value={f.value} suffix={f.suffix} label={f.label} size={38} />
-          ))}
-        </Wrap>
-      </section>
-
-      <section style={{ background: "var(--paper)", paddingBottom: 72 }}>
-        <Wrap>
-          <div className="cta-card" style={{ position: "relative", borderRadius: 24, overflow: "hidden", background: "linear-gradient(120deg,#3d2459,#291641)" }}>
-            <div style={{ position: "absolute", top: -160, right: -80, width: 460, height: 460, background: "radial-gradient(circle,rgba(232,169,59,.22),rgba(232,169,59,0) 70%)" }} />
-            <div className="rgrid1" style={{ position: "relative", gap: 40, alignItems: "center", "--cols": "1.3fr .7fr" } as VarStyle}>
-              <div>
-                <h2 style={{ font: "800 clamp(28px,3.2vw,42px)/1.1 var(--font-display)", letterSpacing: "-.025em", color: "#fff", textWrap: "balance" }}>
-                  Want to know more about our work?
-                </h2>
-                <p style={{ font: "400 16px/1.6 var(--font-body)", color: "rgba(255,255,255,.78)", margin: "16px 0 0", maxWidth: "50ch" }}>
-                  See exactly how your support turns into protection, dignity and care on the ground.
-                </p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <PrimaryButton onClick={openDonate} style={{ height: 54 }}>
-                  Donate now
-                </PrimaryButton>
-                <SecondaryButton href="/what-we-do" style={{ height: 54, width: "100%" }}>
-                  See our programs
-                </SecondaryButton>
-              </div>
+              <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12, color: '#fff' }}>Our vision</h3>
+              <p style={{ fontSize: 15.5, color: 'rgba(255,255,255,.85)', lineHeight: 1.6 }}>
+                Resilient, self-reliant communities where every person — regardless of gender, age or ability — lives
+                free from violence and with equal opportunity to thrive.
+              </p>
             </div>
           </div>
-        </Wrap>
+        </div>
       </section>
-    </div>
+
+      {/* Values */}
+      <section id="values" style={{ padding: 'clamp(40px,5vw,80px) clamp(18px,5vw,64px)', scrollMarginTop: 90 }}>
+        <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+          <h2 data-reveal style={{ fontSize: 'clamp(28px,3.8vw,44px)', fontWeight: 800, marginBottom: 36 }}>
+            What we stand for
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 20 }}>
+            {values.map((v) => (
+              <div
+                key={v.title}
+                data-reveal
+                style={{ borderRadius: 18, padding: 26, background: '#fff', border: '1px solid rgba(28,22,38,.09)' }}
+              >
+                <div style={{ fontSize: 30, marginBottom: 14 }}>{v.icon}</div>
+                <h4 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>{v.title}</h4>
+                <p style={{ fontSize: 14, color: '#6b6478', lineHeight: 1.55 }}>{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section id="team" style={{ padding: 'clamp(48px,6vw,90px) clamp(18px,5vw,64px)', background: '#fff', scrollMarginTop: 90 }}>
+        <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+          <div data-reveal style={{ marginBottom: 36 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                letterSpacing: '.2em',
+                textTransform: 'uppercase',
+                color: '#9966CC',
+                marginBottom: 12,
+              }}
+            >
+              Our people
+            </div>
+            <h2 style={{ fontSize: 'clamp(28px,3.8vw,44px)', fontWeight: 800 }}>Led by women. Powered by youth.</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 22 }}>
+            {team.map((t) => (
+              <div key={t.name} data-reveal>
+                <div
+                  style={{
+                    borderRadius: 18,
+                    aspectRatio: '1 / 1',
+                    background: 'linear-gradient(150deg,#9966CC,#4B2E83)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 14,
+                  }}
+                >
+                  <div style={{ position: 'absolute', inset: 0, backgroundImage: GRAIN, mixBlendMode: 'overlay', opacity: 0.4 }} />
+                  <span style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 800, fontSize: 46, color: 'rgba(255,255,255,.85)' }}>
+                    {t.initial}
+                  </span>
+                </div>
+                <div style={{ fontWeight: 700, fontSize: 17 }}>{t.name}</div>
+                <div style={{ fontSize: 13.5, color: '#9966CC', fontWeight: 600 }}>{t.role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

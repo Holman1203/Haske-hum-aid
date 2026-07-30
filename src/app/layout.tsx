@@ -1,53 +1,73 @@
-import type { Metadata } from "next";
-import { Bricolage_Grotesque, Newsreader, Poppins } from "next/font/google";
-import "./globals.css";
-import { SiteProvider } from "@/context/site-context";
-import { Banner } from "@/components/Banner";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { QuickExitOverlay } from "@/components/QuickExitOverlay";
-import { DonateModal } from "@/components/DonateModal";
-
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-newsreader",
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
+import type { Metadata, Viewport } from 'next';
+import './globals.css';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import QuickExitProvider from '@/components/layout/QuickExit';
+import ChatBot from '@/components/layout/ChatBot';
 
 export const metadata: Metadata = {
-  title: "Haske Humanitarian Aid Initiative — Bringing light to communities in crisis",
+  metadataBase: new URL('https://haskeinitiative.org'),
+  title: {
+    default: 'Haske Humanitarian Aid Initiative (HHAI) | Carrying light to where it’s needed most',
+    template: '%s | Haske Humanitarian Aid Initiative',
+  },
   description:
-    "Haske Humanitarian Aid Initiative (HHAI) is a woman-led, youth-driven Nigerian NGO working to end gender-based violence and support displaced and vulnerable communities across Northern Nigeria.",
+    'Haske Humanitarian Aid Initiative (HHAI) is a woman-led, youth-driven national NGO protecting dignity and saving lives across North-East & North-West Nigeria — ending gender-based violence, delivering clean water, and standing with displaced families.',
+  keywords: [
+    'HHAI', 'Haske Humanitarian Aid Initiative', 'Nigeria NGO', 'GBV', 'gender-based violence',
+    'WASH', 'clean water', 'humanitarian relief', 'displaced families', 'Borno', 'Adamawa', 'Yobe',
+    'North-East Nigeria', 'North-West Nigeria', 'women empowerment', 'youth empowerment',
+  ],
+  authors: [{ name: 'Haske Humanitarian Aid Initiative' }],
+  creator: 'HHAI',
+  openGraph: {
+    type: 'website',
+    locale: 'en_NG',
+    url: 'https://haskeinitiative.org',
+    siteName: 'Haske Humanitarian Aid Initiative',
+    title: 'Haske Humanitarian Aid Initiative | Carrying light to where it’s needed most',
+    description:
+      'A woman-led, youth-driven national NGO ending gender-based violence, delivering clean water and standing with displaced families across North-East & North-West Nigeria.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Haske Humanitarian Aid Initiative',
+    description: 'Carrying light to where it’s needed most across North-East & North-West Nigeria.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  icons: {
+    icon: '/images/hhai-badge.png',
+    apple: '/images/hhai-badge.png',
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#9966CC',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${newsreader.variable} ${poppins.variable}`}>
-      <body>
-        <SiteProvider>
-          <QuickExitOverlay />
-          <Banner />
+    <html lang="en" suppressHydrationWarning>
+      <body style={{ overflowX: 'hidden' }} suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only"
+          style={{ position: 'absolute', left: -9999, top: 0 }}
+        >
+          Skip to main content
+        </a>
+        <QuickExitProvider>
           <Header />
-          <main style={{ minHeight: "50vh" }}>{children}</main>
+          {children}
           <Footer />
-          <DonateModal />
-        </SiteProvider>
+          <ChatBot />
+        </QuickExitProvider>
       </body>
     </html>
   );

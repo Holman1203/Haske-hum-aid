@@ -1,215 +1,148 @@
-:root {
-  --font-display: var(--font-bricolage), sans-serif;
-  --font-body: var(--font-poppins), system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), serif;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Poppins:wght@400;500;600;700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Haske Humanitarian Aid Initiative — design tokens
+   Navy/orange premium direction (Playfair Display + Inter)
+   ============================================================ */
+:root {
+  /* Primary palette — brand purple */
+  --primary: #9966CC;
+  --primary-mid: #7a4fb0;
+  --primary-deep: #4B2E83;
+  --primary-darkest: #2E1B47;
+  /* Brand secondary — green */
+  --secondary: #3AAA35;
+  --secondary-d: #257D34;
+  --secondary-lt: #8FE08A;
+  --gray: #F5F7FA;
+  --line: rgba(75, 46, 131, .12);
+  --line2: rgba(75, 46, 131, .22);
+  --muted: #5c6579;
+
+  /* Legacy purple tokens — still used by /about, /what-we-do,
+     /get-involved, /contact until those pages get the new pass */
   --ink: #291641;
   --ink2: #3d2459;
   --ink-deep: #1c0f2e;
-  --amethyst: #9966cc;
-  --amethyst-d: #7a4fb0;
-  --amethyst-dd: #5d3a92;
+  --purple: #9966CC;
+  --purple-d: #7a4fb0;
+  --purple-dd: #5d3a92;
+  --gold: #e8a93b;
+  --gold-d: #b9810f;
   --lilac: #f4eefb;
   --lilac2: #e9dcf8;
   --paper: #fbf9f5;
   --paper2: #f3eee6;
-  --gold: #e8a93b;
-  --gold-d: #b9810f;
-  --line: rgba(41, 22, 65, 0.12);
-  --line2: rgba(41, 22, 65, 0.22);
-  --muted: #6c6480;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--paper);
-  font-family: var(--font-body);
-  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #16213e;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-p {
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
   margin: 0;
+  line-height: 1.08;
+  letter-spacing: -.015em;
+  font-weight: 700;
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; font-size: 16px; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--primary); color: #fff; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-thumb { background: #d8c8ec; border-radius: 9px; border: 3px solid #fff; }
+
+/* Scroll reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .85s cubic-bezier(.16, .84, .34, 1), transform .85s cubic-bezier(.16, .84, .34, 1);
+}
+[data-reveal].in { opacity: 1; transform: none; }
+
+@keyframes aurora {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, -8%) scale(1.15); }
+  66% { transform: translate(-7%, 5%) scale(.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes ray { to { transform: rotate(360deg); } }
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes shimmer { to { background-position: 200% 0; } }
+@keyframes popin {
+  0% { transform: scale(.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* Cinematic slow zoom for the hero photograph */
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.09); }
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
 }
 
-button {
-  font-family: inherit;
+/* Nav dropdown items */
+.drop-item:hover { background: var(--gray); color: var(--primary-mid); }
+
+/* Glassmorphism surface */
+.glass {
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, .55);
 }
 
-::selection {
-  background: var(--amethyst);
-  color: #fff;
+.gtxt {
+  background: linear-gradient(100deg, var(--purple) 0%, var(--gold) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
-@keyframes rays {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.ph {
-  position: relative;
-  background: linear-gradient(140deg, #2c1750, #7c4fb6 62%, #b98fdd);
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-}
-
-.ph::before {
+.lift { transition: transform .4s cubic-bezier(.16, .84, .34, 1), box-shadow .4s ease; }
+.lift:hover { transform: translateY(-6px); }
+.ulink { position: relative; }
+.ulink::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.5px);
-  background-size: 7px 7px;
-  mix-blend-mode: overlay;
-  opacity: 0.55;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 0;
+  background: var(--secondary);
+  transition: width .3s ease;
 }
+.ulink:hover::after { width: 100%; }
 
-.ph-cap {
-  position: relative;
-  margin: 0;
-  padding: 13px 14px;
-  font: 500 11px/1.35 var(--font-body);
-  color: rgba(255, 255, 255, 0.94);
-  z-index: 1;
+/* 8-item menu needs more room than the old 4-item one — burger kicks in earlier */
+@media (max-width: 1080px) {
+  .nav-desktop { display: none !important; }
+  .nav-burger { display: flex !important; }
 }
-
-.ph-cap b {
-  display: block;
-  font-size: 8.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-  margin-bottom: 4px;
-  font-weight: 600;
+@media (max-width: 880px) {
+  .stack-m { flex-direction: column !important; }
+  .stack-m > * { width: 100% !important; }
 }
-
-.wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-@media (max-width: 900px) {
-  .wrap {
-    padding: 0 20px;
-  }
-}
-
-/* Responsive grid utilities: desktop column layout comes from the --cols
-   custom property set inline per-instance; these breakpoints override it. */
-.rgrid1 {
-  display: grid;
-  grid-template-columns: var(--cols, 1fr);
-}
-@media (max-width: 900px) {
-  .rgrid1 {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-.rgrid2 {
-  display: grid;
-  grid-template-columns: var(--cols, 1fr);
-}
-@media (max-width: 900px) {
-  .rgrid2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-@media (max-width: 600px) {
-  .rgrid2 {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-.cta-card {
-  padding: 60px 56px;
-}
-@media (max-width: 700px) {
-  .cta-card {
-    padding: 40px 24px;
-  }
-}
-
-/* Copy column next to a full-bleed photo placeholder in a split section;
-   --pb/--pis/--pie set the desktop block/inline-start/inline-end padding. */
-.split-copy {
-  padding-block: var(--pb, 60px);
-  padding-inline-start: var(--pis, 56px);
-  padding-inline-end: var(--pie, 0px);
-}
-@media (max-width: 900px) {
-  .split-copy {
-    padding: 32px 0 48px !important;
-  }
-}
-
-@media (max-width: 900px) {
-  .nav-desktop {
-    display: none !important;
-  }
-  .nav-toggle {
-    display: inline-flex !important;
-  }
-}
-
-@media (max-width: 560px) {
-  .topbar-locale {
-    display: none;
-  }
-}
-
-.region-desc {
-  padding-left: 144px;
-}
-@media (max-width: 600px) {
-  .region-desc {
-    padding-left: 0;
-  }
+@media (min-width: 1081px) {
+  .nav-burger { display: none !important; }
 }
