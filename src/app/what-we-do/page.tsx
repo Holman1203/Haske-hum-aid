@@ -1,225 +1,134 @@
-import type { Metadata } from 'next';
-import RevealObserver from '@/components/ui/RevealObserver';
+"use client";
 
-const GRAIN = 'var(--grain)';
+import { useSite } from "@/context/site-context";
+import { BookIcon, CheckIcon, DropIcon, FlagIcon, PulseIcon, ShieldIcon, SproutIcon } from "@/components/icons";
+import { PageHero, PhotoPlaceholder, PrimaryButton, SecondaryButton, Wrap, type VarStyle } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: 'What We Do',
-  description:
-    'From prevention to recovery — our thematic areas combine immediate humanitarian relief with long-term resilience: Protection, WASH, Education, Health, Livelihoods & Resilience, and Advocacy & Gender Equality.',
-};
-
-const programs = [
+const PROGRAMS = [
   {
-    id: 'protection',
-    icon: '🛡️',
-    iconBg: '#F4EEFB',
-    tag: 'Protection',
-    title: 'Protection',
-    long: 'We work to eradicate gender-based violence through prevention — sensitization, awareness-raising and community engagement — and through response: survivor-centered medical services, referrals, and case management that restore safety and dignity.',
-    chips: ['GBV prevention', 'Medical care', 'Case management', 'Referrals'],
+    Icon: ShieldIcon,
+    tag: "01 · Protection",
+    title: "GBV Prevention & Response",
+    desc: "Our founding program. We run community sensitization on gender-based violence, staff confidential referral pathways, and provide medical care and case management for survivors — always consent-based and survivor-led.",
+    points: ["Confidential case management & referral", "Community sensitization circles", "Medical & clinical care partnerships", "Safe spaces for women and girls"],
+    caption: "Community sensitization circle · Borno State",
   },
   {
-    id: 'wash',
-    icon: '💧',
-    iconBg: '#E7F3FB',
-    tag: 'WASH',
-    title: 'Water, Sanitation & Hygiene',
-    long: 'Clean water and dignified sanitation are lifelines. We deliver WASH services, hygiene promotion and infrastructure to internally displaced persons, returnees and the communities that host them.',
-    chips: ['Clean water', 'Hygiene kits', 'Latrines', 'KAP surveys'],
+    Icon: DropIcon,
+    tag: "02 · WASH",
+    title: "Water, Sanitation & Hygiene",
+    desc: "We install safe water points and GBV-safe, do-no-harm WASH facilities in displacement settings — designed from the ground up to protect dignity and reduce protection risks for women and girls.",
+    points: ["Lit, lockable, gender-segregated latrines", "Safe water point construction & repair", "Hygiene kit distribution", "WASH committee training"],
+    caption: "Safe water point · Konduga LGA",
   },
   {
-    id: 'education',
-    icon: '🎓',
-    iconBg: '#FFF1E0',
-    tag: 'Education',
-    title: 'Education in Emergencies',
-    long: 'We create safe, protective learning spaces for out-of-school, Almajiri and displaced children — keeping a generation in school and restoring routine, hope and opportunity in the middle of crisis.',
-    chips: ['Safe learning spaces', 'Almajiri children', 'Back-to-school'],
+    Icon: BookIcon,
+    tag: "03 · Education",
+    title: "Education in Emergencies",
+    desc: "Safe, protective learning spaces for out-of-school, Almajiri and displaced children — keeping a generation learning through crisis, with teacher training and psychosocial support built in.",
+    points: ["Temporary learning spaces", "Teacher training & incentives", "Learning materials distribution", "Child protection referral in schools"],
+    caption: "Temporary learning space · Yobe State",
   },
   {
-    id: 'health',
-    icon: '🩺',
-    iconBg: '#E7F3FB',
-    tag: 'Health',
-    title: 'Health & Psychosocial Support',
-    long: 'We deliver primary healthcare, medical outreach, mental-health and psychosocial care, and protection referral pathways for people affected by crisis — including nutrition support for mothers and children.',
-    chips: ['Primary healthcare', 'MHPSS', 'Nutrition', 'Referral pathways'],
+    Icon: PulseIcon,
+    tag: "04 · Health",
+    title: "Health & Psychosocial Support",
+    desc: "Medical services and mental-health / psychosocial care for people affected by crisis and violence, plus protection referral pathways into specialist services.",
+    points: ["Mobile & static health outreach", "Individual & group psychosocial support", "Referral to specialist clinical care", "Community health worker training"],
+    caption: "Mobile health outreach · Maiduguri",
   },
   {
-    id: 'livelihoods',
-    icon: '🌱',
-    iconBg: '#E9F6EE',
-    tag: 'Livelihoods',
-    title: 'Livelihoods & Resilience',
-    long: 'We equip IDPs, returnees and host communities with skills, cash support and capacity-building that rebuild self-reliance — turning emergency relief into lasting economic resilience.',
-    chips: ['Skills training', 'Cash transfers', 'Self-reliance'],
+    Icon: FlagIcon,
+    tag: "05 · Advocacy",
+    title: "Advocacy & Gender Equality",
+    desc: "We campaign with stakeholders — government, traditional and religious leaders, CSO networks — against systemic inequality and the barriers that put women, girls and displaced people at risk.",
+    points: ["Policy engagement with state actors", "Traditional & religious leader dialogues", "CSO network coordination", "Gender-equality campaigns"],
+    caption: "Community dialogue session · Adamawa State",
   },
   {
-    id: 'advocacy',
-    icon: '📣',
-    iconBg: '#F4EEFB',
-    tag: 'Advocacy',
-    title: 'Advocacy & Gender Equality',
-    long: 'We campaign with stakeholders against systemic inequality and harmful practices — promoting the rights of women, girls, young people and persons with disabilities across Northern Nigeria.',
-    chips: ['Campaigns', 'Gender equality', 'Inclusion', 'Rights'],
+    Icon: SproutIcon,
+    tag: "06 · Livelihoods",
+    title: "Livelihoods & Resilience",
+    desc: "Capacity-building and self-reliance support for IDPs, returnees and host communities — vocational training, small grants and cooperatives that build strength that outlasts the emergency.",
+    points: ["Vocational & skills training", "Small business start-up grants", "Savings & loan cooperatives", "Market-linkage support"],
+    caption: "Tailoring cooperative · Maiduguri",
   },
-];
-
-const approach = [
-  { step: '1', title: 'Prevent', desc: 'Sensitization & awareness to stop violence before it starts.' },
-  { step: '2', title: 'Protect', desc: 'Safe spaces, referrals and immediate response for those at risk.' },
-  { step: '3', title: 'Restore', desc: 'Medical care, counseling and case management for survivors.' },
-  { step: '4', title: 'Rebuild', desc: 'Livelihoods, education and advocacy for lasting resilience.' },
 ];
 
 export default function WhatWeDoPage() {
+  const { openDonate } = useSite();
+
   return (
-    <main id="main-content">
-      <RevealObserver />
+    <div>
+      <PageHero
+        eyebrow="What we do"
+        title="Six integrated programs. One mission: bring light."
+        intro="From emergency GBV response to long-term livelihoods, every program is designed to work together — protecting people in crisis today while building the resilience they need for tomorrow."
+      />
 
-      <section
-        style={{
-          padding: 'clamp(48px,6vw,70px) clamp(18px,5vw,64px) clamp(40px,5vw,70px)',
-          background: 'linear-gradient(165deg,#2E1B47,#4B2E83)',
-          color: '#fff',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: GRAIN, mixBlendMode: 'overlay', opacity: 0.35 }} />
-        <div style={{ position: 'relative', maxWidth: 1000, margin: '0 auto' }}>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 700,
-              letterSpacing: '.2em',
-              textTransform: 'uppercase',
-              color: '#FFCB6B',
-              marginBottom: 18,
-            }}
-          >
-            What we do
-          </div>
-          <h1 style={{ fontSize: 'clamp(38px,6vw,76px)', fontWeight: 800, letterSpacing: '-.035em', color: '#fff', maxWidth: '15ch' }}>
-            From prevention to recovery — we walk the whole way.
-          </h1>
-          <p style={{ fontSize: 'clamp(17px,1.6vw,21px)', color: 'rgba(255,255,255,.8)', maxWidth: 660, marginTop: 24 }}>
-            Our programs combine immediate humanitarian relief with long-term resilience — so communities don&apos;t just
-            survive crisis, they recover with dignity.
-          </p>
-        </div>
-      </section>
-
-      {/* Programs */}
-      <section style={{ padding: 'clamp(40px,5vw,80px) clamp(18px,5vw,64px)' }}>
-        <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 22 }}>
-          {programs.map((p) => (
-            <div
-              key={p.title}
-              id={p.id}
-              data-reveal
-              className="stack-m"
-              style={{
-                display: 'flex',
-                gap: 'clamp(20px,3vw,44px)',
-                alignItems: 'flex-start',
-                border: '1px solid rgba(28,22,38,.09)',
-                borderRadius: 22,
-                padding: 'clamp(24px,3vw,40px)',
-                background: '#fff',
-                flexWrap: 'wrap',
-                scrollMarginTop: 90,
-              }}
+      {PROGRAMS.map((p, i) => {
+        const reverse = i % 2 === 1;
+        return (
+          <section key={p.title} style={{ background: i % 2 === 0 ? "#fff" : "var(--paper)", borderBottom: "1px solid var(--line)" }}>
+            <Wrap
+              className="rgrid1"
+              style={{ alignItems: "stretch", "--cols": reverse ? "1.08fr .92fr" : ".92fr 1.08fr" } as VarStyle}
             >
+              {!reverse && <PhotoPlaceholder label="Photo placeholder" caption={p.caption} style={{ minHeight: 420, margin: "0 -1px" }} />}
               <div
-                style={{
-                  flex: '0 0 auto',
-                  width: 72,
-                  height: 72,
-                  borderRadius: 18,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 34,
-                  background: p.iconBg,
-                }}
+                className="split-copy"
+                style={(reverse ? { "--pb": "56px", "--pis": "0px", "--pie": "56px" } : { "--pb": "56px", "--pis": "56px" }) as VarStyle}
               >
-                {p.icon}
-              </div>
-              <div style={{ flex: '1 1 320px', minWidth: 240 }}>
-                <div
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 700,
-                    letterSpacing: '.16em',
-                    textTransform: 'uppercase',
-                    color: '#9966CC',
-                    marginBottom: 8,
-                  }}
-                >
+                <span style={{ display: "inline-flex", width: 46, height: 46, borderRadius: 12, background: "var(--lilac)", alignItems: "center", justifyContent: "center", color: "var(--amethyst-dd)" }}>
+                  <p.Icon />
+                </span>
+                <span style={{ display: "block", font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)", marginTop: 16 }}>
                   {p.tag}
-                </div>
-                <h3 style={{ fontSize: 'clamp(24px,3vw,32px)', fontWeight: 800, marginBottom: 12 }}>{p.title}</h3>
-                <p style={{ fontSize: 16, color: '#4a4258', lineHeight: 1.6, marginBottom: 16 }}>{p.long}</p>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {p.chips.map((c) => (
-                    <span
-                      key={c}
-                      style={{
-                        background: '#F4EEFB',
-                        color: '#4B2E83',
-                        fontSize: 13,
-                        fontWeight: 600,
-                        padding: '7px 14px',
-                        borderRadius: 999,
-                      }}
-                    >
-                      {c}
-                    </span>
+                </span>
+                <h2 style={{ font: "700 clamp(24px,2.6vw,32px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "10px 0 0" }}>{p.title}</h2>
+                <p style={{ font: "400 15px/1.7 var(--font-body)", color: "var(--ink2)", marginTop: 16, maxWidth: "52ch" }}>{p.desc}</p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 18px", marginTop: 22 }}>
+                  {p.points.map((pt) => (
+                    <div key={pt} style={{ display: "flex", alignItems: "flex-start", gap: 9 }}>
+                      <span style={{ color: "var(--amethyst-dd)", flex: "none", marginTop: 2 }}>
+                        <CheckIcon />
+                      </span>
+                      <span style={{ font: "500 13px/1.5 var(--font-body)", color: "var(--ink2)" }}>{pt}</span>
+                    </div>
                   ))}
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+              {reverse && <PhotoPlaceholder label="Photo placeholder" caption={p.caption} style={{ minHeight: 420, margin: "0 -1px" }} />}
+            </Wrap>
+          </section>
+        );
+      })}
 
-      {/* Approach */}
-      <section style={{ padding: 'clamp(40px,5vw,80px) clamp(18px,5vw,64px)', background: '#fff' }}>
-        <div data-reveal style={{ maxWidth: 1080, margin: '0 auto' }}>
-          <h2 style={{ fontSize: 'clamp(28px,3.8vw,44px)', fontWeight: 800, marginBottom: 14 }}>Our approach</h2>
-          <p style={{ fontSize: 17, color: '#6b6478', maxWidth: 620, marginBottom: 40 }}>
-            A continuum of care that meets people where they are.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 0 }}>
-            {approach.map((a) => (
-              <div key={a.step} style={{ padding: 24, borderLeft: '2px solid #EBDDF7', position: 'relative' }}>
-                <div
-                  style={{
-                    fontFamily: "'Bricolage Grotesque'",
-                    fontWeight: 800,
-                    fontSize: 15,
-                    color: '#fff',
-                    width: 34,
-                    height: 34,
-                    borderRadius: '50%',
-                    background: '#9966CC',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 18,
-                  }}
-                >
-                  {a.step}
-                </div>
-                <h4 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>{a.title}</h4>
-                <p style={{ fontSize: 14, color: '#6b6478', lineHeight: 1.55 }}>{a.desc}</p>
+      <section style={{ background: "var(--paper)", paddingBlock: 72 }}>
+        <Wrap>
+          <div className="cta-card" style={{ position: "relative", borderRadius: 24, overflow: "hidden", background: "linear-gradient(120deg,#3d2459,#291641)" }}>
+            <div style={{ position: "absolute", top: -160, right: -80, width: 460, height: 460, background: "radial-gradient(circle,rgba(232,169,59,.22),rgba(232,169,59,0) 70%)" }} />
+            <div className="rgrid1" style={{ position: "relative", gap: 40, alignItems: "center", "--cols": "1.3fr .7fr" } as VarStyle}>
+              <div>
+                <h2 style={{ font: "800 clamp(28px,3.2vw,42px)/1.1 var(--font-display)", letterSpacing: "-.025em", color: "#fff", textWrap: "balance" }}>
+                  Every program runs on the generosity of people like you.
+                </h2>
+                <p style={{ font: "400 16px/1.6 var(--font-body)", color: "rgba(255,255,255,.78)", margin: "16px 0 0", maxWidth: "50ch" }}>
+                  Choose where your gift goes, or let us direct it to where it&apos;s needed most.
+                </p>
               </div>
-            ))}
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <PrimaryButton onClick={openDonate} style={{ height: 54 }}>
+                  Donate now
+                </PrimaryButton>
+                <SecondaryButton href="/get-involved" style={{ height: 54, width: "100%" }}>
+                  Volunteer or partner
+                </SecondaryButton>
+              </div>
+            </div>
           </div>
-        </div>
+        </Wrap>
       </section>
-    </main>
+    </div>
   );
 }

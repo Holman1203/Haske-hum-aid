@@ -1,520 +1,240 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import RevealObserver from '@/components/ui/RevealObserver';
+import { useState, type CSSProperties } from "react";
+import Link from "next/link";
+import { useSite } from "@/context/site-context";
+import { CheckIcon } from "@/components/icons";
+import { PageHero, PrimaryButton, Wrap, type VarStyle } from "@/components/ui";
 
-const GRAIN = 'var(--grain)';
+function HandIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 12V5a1.5 1.5 0 0 1 3 0v6M14 11.5V4a1.5 1.5 0 0 1 3 0v8M17 12V6.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5l-2.5-4a1.4 1.4 0 0 1 2.3-1.6L8 15V5a1.5 1.5 0 0 1 3 0v7" />
+    </svg>
+  );
+}
+function BriefcaseIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2.5" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M2 13h20" />
+    </svg>
+  );
+}
+function HandshakeIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m11 17 2 2a1.4 1.4 0 0 0 2-2l-3-3" />
+      <path d="m14 14 3 3a1.4 1.4 0 0 0 2-2l-4.5-4.5" />
+      <path d="m21 11-3.5-3.5a2 2 0 0 0-1.4-.6H13l-2.2-2.2a2 2 0 0 0-2.7-.1L4 8" />
+      <path d="M3 8v6h2M9 18l-2-2" />
+    </svg>
+  );
+}
+function HeartIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+    </svg>
+  );
+}
 
-type Freq = 'once' | 'monthly';
-type Cur = 'NGN' | 'USD';
-
-const DESIGNATIONS = [
-  { id: 'where-needed', label: 'Where most needed' },
-  { id: 'gbv', label: 'GBV survivor support' },
-  { id: 'wash', label: 'Clean water (WASH)' },
-  { id: 'relief', label: 'Emergency relief' },
+const WAYS = [
+  { Icon: HeartIcon, title: "Donate", desc: "One-time or monthly — 100% goes directly to programs.", cta: "Donate now", anchor: null },
+  { Icon: HandIcon, title: "Volunteer", desc: "Field, remote and skills-based roles for individuals and groups.", cta: "Apply to volunteer", anchor: "#volunteer" },
+  { Icon: BriefcaseIcon, title: "Careers", desc: "Join our full-time team across Northeast & Northwest Nigeria.", cta: "View openings", anchor: "#careers" },
+  { Icon: HandshakeIcon, title: "Partner with us", desc: "Institutional donors, corporates and CSO networks.", cta: "Start a partnership", anchor: "#partner" },
 ];
 
-const PRESETS: Record<Cur, number[]> = {
-  NGN: [5000, 15000, 50000, 100000],
-  USD: [25, 50, 100, 250],
-};
+const INTERESTS = ["GBV prevention & response", "WASH", "Education in emergencies", "Health & psychosocial support", "Livelihoods & resilience", "General / where needed"];
 
-const fmt = (n: number) => (n || 0).toLocaleString('en-US');
+const OPENINGS = [
+  { title: "GBV Case Worker", location: "Maiduguri, Borno", type: "Full-time" },
+  { title: "WASH Field Officer", location: "Damaturu, Yobe", type: "Full-time" },
+  { title: "M&E Officer", location: "Maiduguri, Borno", type: "Full-time" },
+  { title: "Community Mobilizer (Volunteer)", location: "Multiple LGAs", type: "Volunteer" },
+];
 
 export default function GetInvolvedPage() {
-  const [step, setStep] = useState(1);
-  const [freq, setFreq] = useState<Freq>('monthly');
-  const [cur, setCur] = useState<Cur>('NGN');
-  const [amount, setAmount] = useState<number | null>(null);
-  const [custom, setCustom] = useState('');
-  const [des, setDes] = useState('where-needed');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [err, setErr] = useState('');
-  const [done, setDone] = useState(false);
-
-  const sym = cur === 'NGN' ? '₦' : '$';
-  const defaultAmt = cur === 'NGN' ? 15000 : 50;
-  const effAmount = amount != null ? amount : defaultAmt;
-  const customDigits = custom.replace(/\D/g, '');
-  const customActive = !!customDigits;
-  const eff = customActive ? parseInt(customDigits, 10) : effAmount;
-  const money = (n: number) => sym + fmt(n);
-
-  const impact = () => {
-    const v = cur === 'NGN' ? eff : eff * 1500;
-    if (v <= 7000) return 'Provides hygiene supplies for a displaced family.';
-    if (v <= 22000) return 'Funds a survivor’s first counseling & medical visit.';
-    if (v <= 75000) return 'Brings clean water to a household for months.';
-    return 'Delivers emergency relief for several families in crisis.';
-  };
-
-  const freqWord = freq === 'monthly' ? '/month' : '';
-  const totalDisplay = money(eff) + (freq === 'monthly' ? '/mo' : '');
-  const desLabel = DESIGNATIONS.find((d) => d.id === des)?.label ?? '';
-  const thankName = name.trim().split(' ')[0] || 'friend';
-
-  const next = () => {
-    if (step === 1) {
-      if (eff <= 0) return;
-      setStep(2);
-      setErr('');
-      window.scrollTo(0, 0);
-      return;
-    }
-    if (step === 2) {
-      if (!name.trim()) {
-        setErr('Please enter your name.');
-        return;
-      }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        setErr('Please enter a valid email.');
-        return;
-      }
-      setStep(3);
-      setErr('');
-      window.scrollTo(0, 0);
-    }
-  };
-  const back = () => {
-    setStep((s) => Math.max(1, s - 1));
-    setErr('');
-  };
-  const submit = () => {
-    setDone(true);
-    window.scrollTo(0, 0);
-  };
-  const reset = () => {
-    setStep(1);
-    setDone(false);
-    setCustom('');
-    setAmount(null);
-    setName('');
-    setEmail('');
-    setErr('');
-  };
-
-  const selPreset = (v: number) => {
-    setAmount(v);
-    setCustom('');
-  };
-
-  const giftFacts = [
-    { icon: '💧', amt: cur === 'NGN' ? '₦5,000' : '$10', txt: 'Clean water for a family for weeks' },
-    { icon: '🛡️', amt: cur === 'NGN' ? '₦15,000' : '$25', txt: 'A survivor’s first counseling session' },
-    { icon: '🏕️', amt: cur === 'NGN' ? '₦50,000' : '$100', txt: 'Emergency relief kit for a household' },
-  ];
-
-  const otherWays = [
-    { id: 'careers', icon: '🙋', title: 'Careers & Volunteering', desc: 'Build your career with us or lend your time and skills to programs in the field or remotely.', cta: 'Join the team' },
-    { id: 'partnership', icon: '🤝', title: 'Partnership', desc: 'Foundations, agencies and businesses — let’s scale impact together.', cta: 'Start a conversation' },
-  ];
-
-  const segBtn = (active: boolean): React.CSSProperties => ({
-    padding: '9px 20px',
-    borderRadius: 9,
-    fontWeight: 700,
-    fontSize: 14,
-    background: active ? '#9966CC' : 'transparent',
-    color: active ? '#fff' : '#6b6478',
-  });
-  const curBtn = (active: boolean): React.CSSProperties => ({
-    padding: '6px 14px',
-    borderRadius: 8,
-    fontWeight: 700,
-    fontSize: 13,
-    background: active ? '#9966CC' : 'transparent',
-    color: active ? '#fff' : '#6b6478',
-  });
-
-  const labelStyle: React.CSSProperties = {
-    display: 'block',
-    fontSize: 13,
-    fontWeight: 700,
-    color: '#4a4258',
-    marginBottom: 7,
-  };
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '14px 16px',
-    borderRadius: 12,
-    border: '1.5px solid rgba(28,22,38,.14)',
-    outline: 'none',
-    fontSize: 16,
-  };
-
-  const reviewRows = [
-    { k: 'Frequency', v: freq === 'monthly' ? 'Monthly gift' : 'One-time gift' },
-    { k: 'Designation', v: desLabel },
-    { k: 'Donor', v: name || '—' },
-    { k: 'Email', v: email || '—' },
-  ];
+  const { openDonate } = useSite();
+  const [interest, setInterest] = useState(INTERESTS[0]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
   return (
-    <main id="main-content">
-      <RevealObserver />
-
-      <section style={{ padding: 'clamp(48px,6vw,64px) clamp(18px,5vw,64px) clamp(32px,4vw,56px)', textAlign: 'center' }}>
-        <div
-          style={{
-            fontSize: 13,
-            fontWeight: 700,
-            letterSpacing: '.2em',
-            textTransform: 'uppercase',
-            color: '#9966CC',
-            marginBottom: 16,
-          }}
-        >
-          Get involved
+    <div>
+      <PageHero
+        eyebrow="Get involved"
+        title="There are many ways to bring light."
+        intro="Whether you have five minutes, five hours a week, or a professional skill to share — there's a place for you in this work."
+      >
+        <div style={{ marginTop: 30 }}>
+          <PrimaryButton onClick={openDonate}>Donate now</PrimaryButton>
         </div>
-        <h1 style={{ fontSize: 'clamp(36px,5.5vw,68px)', fontWeight: 800, letterSpacing: '-.035em', maxWidth: '16ch', margin: '0 auto' }}>
-          Be the reason a family finds light.
-        </h1>
+      </PageHero>
+
+      <section style={{ background: "var(--paper)" }}>
+        <Wrap className="rgrid2" style={{ paddingBlock: 64, gap: 18, "--cols": "repeat(4,1fr)" } as VarStyle}>
+          {WAYS.map((w) => {
+            const card = (
+              <>
+                <span style={{ display: "inline-flex", width: 46, height: 46, borderRadius: 12, background: "var(--lilac)", alignItems: "center", justifyContent: "center", color: "var(--amethyst-dd)" }}>
+                  <w.Icon />
+                </span>
+                <h3 style={{ font: "700 18px var(--font-display)", color: "var(--ink)", margin: "18px 0 0" }}>{w.title}</h3>
+                <p style={{ font: "400 13.5px/1.6 var(--font-body)", color: "var(--muted)", margin: "9px 0 0", flex: 1 }}>{w.desc}</p>
+                <span style={{ font: "700 13px var(--font-body)", color: "var(--amethyst-dd)", marginTop: 16 }}>{w.cta} →</span>
+              </>
+            );
+            const style: CSSProperties = { background: "#fff", border: "1px solid var(--line)", borderRadius: 16, padding: 26, display: "flex", flexDirection: "column", cursor: "pointer" };
+            return w.anchor ? (
+              <a key={w.title} href={w.anchor} style={style}>
+                {card}
+              </a>
+            ) : (
+              <button key={w.title} onClick={openDonate} style={{ ...style, textAlign: "left" }}>
+                {card}
+              </button>
+            );
+          })}
+        </Wrap>
       </section>
 
-      <section style={{ padding: '0 clamp(18px,5vw,64px) clamp(60px,7vw,110px)' }}>
-        <div
-          style={{
-            maxWidth: 980,
-            margin: '0 auto',
-            borderRadius: 26,
-            background: '#fff',
-            border: '1px solid rgba(28,22,38,.09)',
-            overflow: 'hidden',
-            boxShadow: '0 40px 90px -50px rgba(75,46,131,.4)',
-          }}
-        >
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {/* LEFT rail */}
-            <div
-              style={{
-                flex: '1 1 280px',
-                minWidth: 240,
-                background: 'linear-gradient(165deg,#4B2E83,#9966CC)',
-                color: '#fff',
-                padding: 'clamp(28px,3.5vw,44px)',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-            >
-              <div style={{ position: 'absolute', inset: 0, backgroundImage: GRAIN, mixBlendMode: 'overlay', opacity: 0.35 }} />
-              <div style={{ position: 'relative' }}>
-                <h3 style={{ fontSize: 26, fontWeight: 800, color: '#fff', marginBottom: 14 }}>Your gift at work</h3>
-                <p style={{ fontSize: 15, color: 'rgba(255,255,255,.82)', lineHeight: 1.6, marginBottom: 28 }}>
-                  100% of your donation is directed toward programs that protect and restore lives.
-                </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                  {giftFacts.map((g) => (
-                    <div key={g.txt} style={{ display: 'flex', gap: 13, alignItems: 'flex-start' }}>
-                      <div style={{ flex: '0 0 auto', fontSize: 22 }}>{g.icon}</div>
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: 15 }}>{g.amt}</div>
-                        <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,.78)' }}>{g.txt}</div>
-                      </div>
-                    </div>
-                  ))}
+      <section id="volunteer" style={{ background: "#fff", borderTop: "1px solid var(--line)" }}>
+        <Wrap className="rgrid1" style={{ paddingBlock: 70, gap: 54, "--cols": ".95fr 1.05fr" } as VarStyle}>
+          <div>
+            <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)" }}>Volunteer</span>
+            <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "14px 0 0" }}>
+              Bring your time and skills to the field.
+            </h2>
+            <p style={{ font: "400 15.5px/1.72 var(--font-body)", color: "var(--ink2)", marginTop: 18, maxWidth: "48ch" }}>
+              We work with individual volunteers, university groups and skills-based professionals — from community mobilization to WASH construction support to remote M&E and communications help.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 22 }}>
+              {["Community mobilization & sensitization", "Field support (WASH, education, health outreach)", "Remote: M&E, comms, grant writing"].map((t) => (
+                <div key={t} style={{ display: "flex", alignItems: "flex-start", gap: 9 }}>
+                  <span style={{ color: "var(--amethyst-dd)", flex: "none", marginTop: 2 }}>
+                    <CheckIcon />
+                  </span>
+                  <span style={{ font: "500 13.5px/1.5 var(--font-body)", color: "var(--ink2)" }}>{t}</span>
                 </div>
-                <div
-                  style={{
-                    marginTop: 34,
-                    paddingTop: 22,
-                    borderTop: '1px solid rgba(255,255,255,.18)',
-                    fontSize: 13,
-                    color: 'rgba(255,255,255,.7)',
-                  }}
-                >
-                  Haske Humanitarian Aid Initiative · Registered NNGO · Founded 2022
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT donate form */}
-            <div style={{ flex: '2 1 420px', minWidth: 300, padding: 'clamp(28px,3.5vw,44px)' }}>
-              {!done && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 30 }}>
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} style={{ flex: 1, height: 5, borderRadius: 999, background: i <= step ? '#9966CC' : '#EBDDF7' }} />
-                  ))}
-                </div>
-              )}
-
-              {/* STEP 1 */}
-              {!done && step === 1 && (
-                <>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 20 }}>Choose your gift</h3>
-                  <div style={{ display: 'inline-flex', background: '#F4EEFB', borderRadius: 12, padding: 4, marginBottom: 14 }}>
-                    <button onClick={() => setFreq('once')} style={segBtn(freq === 'once')}>One-time</button>
-                    <button onClick={() => setFreq('monthly')} style={segBtn(freq === 'monthly')}>Monthly</button>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 14 }}>
-                    <div style={{ display: 'inline-flex', background: '#F4EEFB', borderRadius: 10, padding: 3 }}>
-                      <button onClick={() => { setCur('NGN'); setAmount(null); setCustom(''); }} style={curBtn(cur === 'NGN')}>₦ NGN</button>
-                      <button onClick={() => { setCur('USD'); setAmount(null); setCustom(''); }} style={curBtn(cur === 'USD')}>$ USD</button>
-                    </div>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 16 }}>
-                    {PRESETS[cur].map((v) => {
-                      const sel = !customActive && effAmount === v;
-                      return (
-                        <button
-                          key={v}
-                          onClick={() => selPreset(v)}
-                          style={{
-                            padding: '15px 10px',
-                            borderRadius: 12,
-                            fontWeight: 700,
-                            fontSize: 17,
-                            transition: 'all .15s ease',
-                            ...(sel
-                              ? { background: '#9966CC', color: '#fff', border: '1.5px solid #9966CC', boxShadow: '0 8px 18px -8px rgba(153,102,204,.7)' }
-                              : { background: '#fff', color: '#1C1626', border: '1.5px solid rgba(28,22,38,.14)' }),
-                          }}
-                        >
-                          {sym + fmt(v)}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <div style={{ position: 'relative', marginBottom: 8 }}>
-                    <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#9966CC', fontSize: 17 }}>
-                      {sym}
-                    </span>
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="Other amount"
-                      value={custom}
-                      onChange={(e) => setCustom(e.target.value.replace(/\D/g, ''))}
-                      style={{
-                        width: '100%',
-                        padding: '15px 16px 15px 34px',
-                        borderRadius: 12,
-                        border: `1.5px solid ${customActive ? '#9966CC' : 'rgba(28,22,38,.14)'}`,
-                        outline: 'none',
-                        fontWeight: 700,
-                        fontSize: 16,
-                        background: '#fff',
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      background: '#FFF6E6',
-                      border: '1px solid rgba(245,166,35,.3)',
-                      borderRadius: 12,
-                      padding: '13px 16px',
-                      display: 'flex',
-                      gap: 10,
-                      alignItems: 'center',
-                      margin: '14px 0 22px',
-                    }}
-                  >
-                    <span style={{ fontSize: 20 }}>✨</span>
-                    <span style={{ fontSize: 14, color: '#7a5a10', fontWeight: 600 }}>{impact()}</span>
-                  </div>
-                  <button
-                    onClick={next}
-                    className="lift"
-                    style={{
-                      width: '100%',
-                      background: '#9966CC',
-                      color: '#fff',
-                      fontWeight: 700,
-                      fontSize: 17,
-                      padding: 16,
-                      borderRadius: 13,
-                      boxShadow: '0 14px 30px -12px rgba(153,102,204,.7)',
-                    }}
-                  >
-                    Continue → — give {money(eff)}{freq === 'monthly' ? '/mo' : ''}
-                  </button>
-                </>
-              )}
-
-              {/* STEP 2 */}
-              {!done && step === 2 && (
-                <>
-                  <button onClick={back} style={{ fontSize: 14, fontWeight: 600, color: '#6b6478', marginBottom: 14 }}>← Back</button>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 6 }}>Your details</h3>
-                  <p style={{ fontSize: 14, color: '#6b6478', marginBottom: 22 }}>So we can send your receipt and impact updates.</p>
-                  <label style={labelStyle}>Full name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    style={{ ...inputStyle, marginBottom: 18 }}
-                  />
-                  <label style={labelStyle}>Email address</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@email.com"
-                    style={{ ...inputStyle, marginBottom: 8 }}
-                  />
-                  <label style={{ ...labelStyle, margin: '14px 0 9px' }}>Direct my gift to</label>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 9, marginBottom: 18 }}>
-                    {DESIGNATIONS.map((d) => {
-                      const sel = des === d.id;
-                      return (
-                        <button
-                          key={d.id}
-                          onClick={() => setDes(d.id)}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '13px 16px',
-                            borderRadius: 12,
-                            fontWeight: 600,
-                            fontSize: 14.5,
-                            textAlign: 'left',
-                            transition: 'all .15s ease',
-                            ...(sel
-                              ? { background: '#F4EEFB', border: '1.5px solid #9966CC', color: '#4B2E83' }
-                              : { background: '#fff', border: '1.5px solid rgba(28,22,38,.12)', color: '#1C1626' }),
-                          }}
-                        >
-                          <span>{d.label}</span>
-                          <span style={{ fontSize: 15 }}>{sel ? '✓' : ''}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {err && (
-                    <div
-                      style={{
-                        background: '#FDECEC',
-                        color: '#C0392B',
-                        fontSize: 13.5,
-                        fontWeight: 600,
-                        padding: '11px 14px',
-                        borderRadius: 10,
-                        marginBottom: 14,
-                      }}
-                    >
-                      {err}
-                    </div>
-                  )}
-                  <button
-                    onClick={next}
-                    className="lift"
-                    style={{ width: '100%', background: '#9966CC', color: '#fff', fontWeight: 700, fontSize: 17, padding: 16, borderRadius: 13 }}
-                  >
-                    Review gift →
-                  </button>
-                </>
-              )}
-
-              {/* STEP 3 review */}
-              {!done && step === 3 && (
-                <>
-                  <button onClick={back} style={{ fontSize: 14, fontWeight: 600, color: '#6b6478', marginBottom: 14 }}>← Back</button>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 22 }}>Confirm your gift</h3>
-                  <div style={{ border: '1px solid rgba(28,22,38,.1)', borderRadius: 16, overflow: 'hidden', marginBottom: 22 }}>
-                    {reviewRows.map((r) => (
-                      <div
-                        key={r.k}
-                        style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 18px', borderBottom: '1px solid rgba(28,22,38,.06)' }}
-                      >
-                        <span style={{ fontSize: 14, color: '#6b6478' }}>{r.k}</span>
-                        <span style={{ fontSize: 14.5, fontWeight: 700, textAlign: 'right' }}>{r.v}</span>
-                      </div>
-                    ))}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: 18, background: '#F4EEFB' }}>
-                      <span style={{ fontWeight: 700, fontSize: 16 }}>Total {freqWord}</span>
-                      <span style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 800, fontSize: 22, color: '#9966CC' }}>{totalDisplay}</span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={submit}
-                    className="lift"
-                    style={{
-                      width: '100%',
-                      background: '#9966CC',
-                      color: '#fff',
-                      fontWeight: 700,
-                      fontSize: 17,
-                      padding: 16,
-                      borderRadius: 13,
-                      boxShadow: '0 14px 30px -12px rgba(153,102,204,.7)',
-                    }}
-                  >
-                    Give {totalDisplay} ♥
-                  </button>
-                  <p style={{ textAlign: 'center', fontSize: 12.5, color: '#9b94a8', marginTop: 14 }}>
-                    🔒 Demo prototype — no real payment is processed.
-                  </p>
-                </>
-              )}
-
-              {/* THANK YOU */}
-              {done && (
-                <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                  <div
-                    style={{
-                      width: 84,
-                      height: 84,
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg,#9966CC,#F5A623)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 40,
-                      margin: '0 auto 24px',
-                      animation: 'popin .5s cubic-bezier(.2,1.4,.5,1)',
-                    }}
-                  >
-                    💜
-                  </div>
-                  <h3 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>Thank you, {thankName}!</h3>
-                  <p style={{ fontSize: 16, color: '#6b6478', maxWidth: 360, margin: '0 auto 8px' }}>
-                    Your {totalDisplay} {freqWord} gift is already becoming light for a family in need.
-                  </p>
-                  <p style={{ fontSize: 14, color: '#9b94a8', marginBottom: 28 }}>A receipt is on its way to {email}.</p>
-                  <button
-                    onClick={reset}
-                    style={{ background: '#F4EEFB', color: '#4B2E83', fontWeight: 700, fontSize: 15, padding: '13px 26px', borderRadius: 12 }}
-                  >
-                    Make another gift
-                  </button>
-                </div>
-              )}
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* other ways */}
-        <div
-          style={{
-            maxWidth: 980,
-            margin: '48px auto 0',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))',
-            gap: 20,
-          }}
-        >
-          {otherWays.map((o) => (
-            <div
-              key={o.title}
-              id={o.id}
-              data-reveal
-              className="lift"
-              style={{ border: '1px solid rgba(28,22,38,.09)', borderRadius: 20, padding: 28, background: '#fff', scrollMarginTop: 90 }}
-            >
-              <div style={{ fontSize: 30, marginBottom: 14 }}>{o.icon}</div>
-              <h4 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>{o.title}</h4>
-              <p style={{ fontSize: 14.5, color: '#6b6478', lineHeight: 1.55, marginBottom: 14 }}>{o.desc}</p>
-              <Link href="/contact" className="ulink" style={{ fontWeight: 700, fontSize: 14.5, color: '#9966CC' }}>
-                {o.cta} →
-              </Link>
-            </div>
-          ))}
-        </div>
+          <div style={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 20, padding: 28 }}>
+            {sent ? (
+              <div style={{ textAlign: "center", padding: "30px 10px" }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--lilac)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", color: "var(--amethyst-dd)" }}>
+                  <CheckIcon />
+                </div>
+                <h3 style={{ font: "700 19px var(--font-display)", color: "var(--ink)" }}>Thanks for stepping up.</h3>
+                <p style={{ font: "400 13.5px/1.6 var(--font-body)", color: "var(--muted)", marginTop: 8 }}>Our volunteer coordinator will reach out within a few days.</p>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSent(true);
+                }}
+              >
+                <h3 style={{ font: "700 18px var(--font-display)", color: "var(--ink)", marginBottom: 18 }}>Volunteer sign-up</h3>
+                <label style={{ display: "block", font: "600 12.5px var(--font-body)", color: "var(--ink2)", marginBottom: 6 }}>Full name</label>
+                <input
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  style={{ width: "100%", height: 46, padding: "0 14px", border: "1.5px solid var(--line)", borderRadius: 11, font: "500 14px var(--font-body)", color: "var(--ink)", outline: "none", marginBottom: 14, background: "#fff" }}
+                />
+                <label style={{ display: "block", font: "600 12.5px var(--font-body)", color: "var(--ink2)", marginBottom: 6 }}>Email</label>
+                <input
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  style={{ width: "100%", height: 46, padding: "0 14px", border: "1.5px solid var(--line)", borderRadius: 11, font: "500 14px var(--font-body)", color: "var(--ink)", outline: "none", marginBottom: 14, background: "#fff" }}
+                />
+                <label style={{ display: "block", font: "600 12.5px var(--font-body)", color: "var(--ink2)", marginBottom: 6 }}>Area of interest</label>
+                <select
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                  style={{ width: "100%", height: 46, padding: "0 14px", border: "1.5px solid var(--line)", borderRadius: 11, font: "500 14px var(--font-body)", color: "var(--ink)", outline: "none", marginBottom: 20, background: "#fff" }}
+                >
+                  {INTERESTS.map((i) => (
+                    <option key={i} value={i}>
+                      {i}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="submit"
+                  style={{ width: "100%", padding: 15, border: "none", borderRadius: 13, background: "var(--amethyst)", color: "#fff", font: "700 15px var(--font-body)", cursor: "pointer" }}
+                >
+                  Submit interest
+                </button>
+              </form>
+            )}
+          </div>
+        </Wrap>
       </section>
-    </main>
+
+      <section id="careers" style={{ background: "var(--paper)" }}>
+        <Wrap style={{ paddingBlock: 70 }}>
+          <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--amethyst-dd)" }}>Careers</span>
+          <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "var(--ink)", margin: "14px 0 34px" }}>Current openings</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {OPENINGS.map((o) => (
+              <div key={o.title} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, background: "#fff", border: "1px solid var(--line)", borderRadius: 14, padding: "18px 22px", flexWrap: "wrap" }}>
+                <div>
+                  <div style={{ font: "700 15.5px var(--font-body)", color: "var(--ink)" }}>{o.title}</div>
+                  <div style={{ font: "400 12.5px var(--font-body)", color: "var(--muted)", marginTop: 4 }}>{o.location}</div>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                  <span style={{ padding: "6px 12px", background: "var(--lilac)", color: "var(--amethyst-dd)", borderRadius: 8, font: "600 11.5px var(--font-body)" }}>{o.type}</span>
+                  <Link href="/contact" style={{ font: "700 13px var(--font-body)", color: "var(--amethyst-dd)", cursor: "pointer" }}>
+                    Apply →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{ font: "400 13px/1.6 var(--font-body)", color: "var(--muted)", marginTop: 20 }}>
+            To apply, send your CV and a short cover note to{" "}
+            <a style={{ color: "var(--amethyst-dd)", fontWeight: 600 }}>hr@haskeinitiative.org</a>, referencing the role title.
+          </p>
+        </Wrap>
+      </section>
+
+      <section id="partner" style={{ background: "var(--ink-deep)", color: "#fff" }}>
+        <Wrap className="rgrid1" style={{ paddingBlock: 70, gap: 50, alignItems: "center", "--cols": "1.1fr .9fr" } as VarStyle}>
+          <div>
+            <span style={{ font: "600 11.5px var(--font-body)", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--gold)" }}>Partner with us</span>
+            <h2 style={{ font: "700 clamp(26px,2.8vw,36px)/1.2 var(--font-display)", letterSpacing: "-.02em", color: "#fff", margin: "14px 0 16px" }}>
+              For institutional donors, corporates & CSO networks.
+            </h2>
+            <p style={{ font: "400 15px/1.7 var(--font-body)", color: "rgba(255,255,255,.72)", maxWidth: "48ch" }}>
+              We partner with UN agencies, government ministries, foundations and corporate CSR programs on co-funded and jointly-implemented protection, WASH and education projects across Northern Nigeria.
+            </p>
+          </div>
+          <div style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.14)", borderRadius: 18, padding: 28 }}>
+            <div style={{ font: "700 16px var(--font-display)", color: "#fff", marginBottom: 14 }}>Get in touch about a partnership</div>
+            <div style={{ font: "400 13.5px/1.6 var(--font-body)", color: "rgba(255,255,255,.72)" }}>
+              partnerships@haskeinitiative.org
+              <br />
+              Maiduguri, Borno State · Nigeria
+            </div>
+            <Link
+              href="/contact"
+              style={{ display: "inline-flex", marginTop: 20, padding: "13px 20px", border: "none", borderRadius: 12, background: "var(--gold)", color: "#3a2a06", font: "700 14px var(--font-body)", cursor: "pointer" }}
+            >
+              Contact partnerships team
+            </Link>
+          </div>
+        </Wrap>
+      </section>
+    </div>
   );
 }
