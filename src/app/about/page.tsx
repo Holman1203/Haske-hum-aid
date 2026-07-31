@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import RevealObserver from '@/components/ui/RevealObserver';
+import { team } from '@/data/team';
 
 const GRAIN = 'var(--grain)';
 
@@ -14,13 +16,6 @@ const values = [
   { icon: '🏘️', title: 'Community-Led', desc: 'Solutions are built with communities, not imposed upon them.' },
   { icon: '⚖️', title: 'Equity & Inclusion', desc: 'We prioritize women, youth and people with disabilities.' },
   { icon: '🔍', title: 'Accountability', desc: 'Transparent, measurable impact for the people and donors we serve.' },
-];
-
-const team = [
-  { initial: 'A', name: 'Executive Director', role: 'Founder · Woman-led' },
-  { initial: 'P', name: 'Programs Director', role: 'Operations & Delivery' },
-  { initial: 'M', name: 'MEAL Lead', role: 'Monitoring & Evaluation' },
-  { initial: 'C', name: 'Community Lead', role: 'Engagement & Advocacy' },
 ];
 
 export default function AboutPage() {
@@ -165,7 +160,13 @@ export default function AboutPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 22 }}>
             {team.map((t) => (
-              <div key={t.name} data-reveal>
+              <Link
+                key={t.slug}
+                href={`/team/${t.slug}`}
+                data-reveal
+                className="lift"
+                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              >
                 <div
                   style={{
                     borderRadius: 18,
@@ -186,7 +187,7 @@ export default function AboutPage() {
                 </div>
                 <div style={{ fontWeight: 700, fontSize: 17 }}>{t.name}</div>
                 <div style={{ fontSize: 13.5, color: '#9966CC', fontWeight: 600 }}>{t.role}</div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
